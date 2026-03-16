@@ -1,0 +1,38 @@
+aid: powerreviews
+name: PowerReviews
+description: >-
+  PowerReviews provides ratings and reviews software and APIs for collecting
+  and displaying user-generated reviews to help shoppers make better purchase
+  decisions and drive e-commerce conversions.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Ratings and Reviews
+  - E-Commerce
+  - User Generated Content
+  - API
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/powerreviews/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: powerreviews:powerreviews-api
+    name: PowerReviews API
+    description: >-
+      API for collecting, managing, and displaying product ratings and reviews.
+    humanURL: https://www.powerreviews.com/developers/
+    tags:
+      - Ratings and Reviews
+      - E-Commerce
+    properties:
+      - type: Documentation
+        url: https://www.powerreviews.com/developers/
+common:
+  - type: Website
+    url: https://www.powerreviews.com/
+  - type: Documentation
+    url: https://www.powerreviews.com/developers/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
