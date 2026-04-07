@@ -7,10 +7,9 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Ratings and Reviews
   - E-Commerce
+  - Ratings and Reviews
   - User Generated Content
-  - API
 url: >-
   https://raw.githubusercontent.com/api-evangelist/powerreviews/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -23,8 +22,8 @@ apis:
       API for collecting, managing, and displaying product ratings and reviews.
     humanURL: https://www.powerreviews.com/developers/
     tags:
-      - Ratings and Reviews
       - E-Commerce
+      - Ratings and Reviews
     properties:
       - type: Documentation
         url: https://www.powerreviews.com/developers/
