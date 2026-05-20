@@ -37,6 +37,10 @@ apis:
       - type: SignUp
         url: https://www.powerreviews.com/contact/
 common:
+  - type: GitHubOrganization
+    url: https://github.com/powerreviews
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/powerreviews
   - type: Website
     url: https://www.powerreviews.com/
   - type: Documentation
