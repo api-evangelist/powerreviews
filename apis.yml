@@ -34,7 +34,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.powerreviews.com/developers/
-      - type: SignUp
+      - type: Signup
         url: https://www.powerreviews.com/contact/
 common:
   - type: GitHubOrganization
