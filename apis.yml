@@ -37,6 +37,8 @@ apis:
       - type: Signup
         url: https://www.powerreviews.com/contact/
 common:
+  - type: DomainSecurity
+    url: security/powerreviews-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/powerreviews
   - type: LinkedIn
@@ -47,6 +49,8 @@ common:
     url: https://www.powerreviews.com/developers/
   - type: Support
     url: https://www.powerreviews.com/contact/
+  - url: https://www.powerreviews.com/feed/
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
