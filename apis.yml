@@ -1,11 +1,14 @@
 aid: powerreviews
 name: PowerReviews
-description: >-
-  PowerReviews provides ratings and reviews software and APIs for
-  collecting, syndicating, and displaying user-generated reviews,
-  questions, and answers to help shoppers make better purchase decisions
-  and drive e-commerce conversion. The platform supports product
-  catalog, review submission, display, and analytics use cases.
+description: 'PowerReviews provides ratings and reviews software and APIs for collecting, syndicating,
+  and displaying user-generated reviews, questions, and answers so shoppers can make better purchase decisions
+  and retailers and brands can drive e-commerce conversion. The platform publishes two public HTTP API
+  surfaces: a Read API (readservices-b2c.powerreviews.com) that returns reviews, questions, answers, product
+  snippets, and merchant display configuration for a merchant and locale, and a Write API (writeservices.powerreviews.com)
+  that retrieves the write-a-review template and submits reviews, questions, answers, and merchant responses
+  server-to-server. Both are authenticated with a merchant-scoped apikey query parameter issued by PowerReviews
+  support, and are documented in a MadCap Flare developer portal with Swagger 2.0 references. PowerReviews
+  was acquired by Syndigo and now sits inside the Syndigo Product Experience Cloud.'
 type: Index
 accessModel:
   pricing: freemium
@@ -21,48 +24,136 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/powerreviews.png
 tags:
+- E-Commerce
+- Ratings and Reviews
+- User Generated Content
+- Retail
+- Marketing
+- Syndication
+- Questions and Answers
+- Product Data
+url: https://raw.githubusercontent.com/api-evangelist/powerreviews/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-08-13'
+specificationVersion: '0.19'
+apis:
+- aid: powerreviews:powerreviews-api
+  name: PowerReviews Read API
+  description: The PowerReviews Read API returns reviews, questions, answers, product review snippets,
+    and merchant display configuration left on a merchant's products by their customers. It is used to
+    render user-generated content in custom storefronts and mobile apps, and to feed review data into
+    CRM, analytics, and third-party software. All operations are GET requests keyed by merchant id and
+    locale, authenticated with an apikey query parameter.
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
   - E-Commerce
   - Ratings and Reviews
   - User Generated Content
-  - Retail
-  - Marketing
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/powerreviews/refs/heads/main/apis.yml
-created: '2026-03-16'
-modified: '2026-04-28'
-specificationVersion: '0.19'
-apis:
-  - aid: powerreviews:powerreviews-api
-    name: PowerReviews API
-    description: >-
-      PowerReviews API for collecting, managing, syndicating, and
-      displaying product ratings, reviews, and questions. Used by
-      retailers and brands to integrate user-generated content into
-      product detail pages and merchandising workflows.
-    humanURL: https://www.powerreviews.com/developers/
-    tags:
-      - E-Commerce
-      - Ratings and Reviews
-    properties:
-      - type: Documentation
-        url: https://www.powerreviews.com/developers/
-      - type: Signup
-        url: https://www.powerreviews.com/contact/
-common:
-  - type: DomainSecurity
-    url: security/powerreviews-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/powerreviews
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/powerreviews
-  - type: Website
-    url: https://www.powerreviews.com/
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-readservices-openapi.yml
   - type: Documentation
-    url: https://www.powerreviews.com/developers/
-  - type: Support
-    url: https://www.powerreviews.com/contact/
-  - url: https://www.powerreviews.com/feed/
-    type: Blog
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Overlay
+    url: overlays/powerreviews-readservices-overlay.yaml
+- aid: powerreviews:powerreviews-write-api
+  name: PowerReviews Write API
+  description: The PowerReviews Write API (the B2B WriteServices surface) provides server-to-server integration
+    endpoints for the PowerReviews Write-a-Review form. It retrieves the locale-aware review template
+    for a page id and submits reviews, questions, answers, and merchant responses on behalf of a merchant,
+    including the iOvation device fingerprint required for content authenticity screening. Submitted content
+    enters PowerReviews in pending status for moderation.
+  humanURL: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  baseURL: https://writeservices.powerreviews.com
+  tags:
+  - E-Commerce
+  - Ratings and Reviews
+  - User Generated Content
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-writeservices-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+  - type: Overlay
+    url: overlays/powerreviews-writeservices-overlay.yaml
+common:
+- type: AgenticAccess
+  url: agentic-access/powerreviews-agentic-access.yml
+- type: Website
+  url: https://www.powerreviews.com/
+- type: DeveloperPortal
+  url: https://developers.powerreviews.com/
+- type: Documentation
+  url: https://developers.powerreviews.com/Content/Home.htm
+- type: APIReference
+  url: https://developers.powerreviews.com/Content/reference/read.html
+- type: GettingStarted
+  url: https://developers.powerreviews.com/Content/Getting%20Started%20APIs/Getting%20Started.htm
+- type: Support
+  url: https://www.powerreviews.com/contact/
+- type: Blog
+  url: https://www.powerreviews.com/feed/
+- type: GitHubOrganization
+  url: https://github.com/powerreviews
+- type: LinkedIn
+  url: https://www.linkedin.com/company/powerreviews
+- type: SignUp
+  url: https://www.powerreviews.com/demo/
+- type: Login
+  url: https://auth.powerreviews.com/login
+- type: TermsOfService
+  url: https://www.powerreviews.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://syndigo.com/legal/privacy-notice/
+- type: StatusPage
+  url: http://status.powerreviews.com/
+- type: Deprecation
+  url: https://developers.powerreviews.com/Content/What's%20New/Deprecated%20Functionality.htm
+- type: ChangeLog
+  url: https://developers.powerreviews.com/Content/What's%20New/Changelog.htm
+- type: ChangeLog
+  name: PowerReviews changelog artifact
+  url: changelog/powerreviews-changelog.yml
+- type: Lifecycle
+  url: lifecycle/powerreviews-lifecycle.yml
+- type: Authentication
+  url: authentication/powerreviews-authentication.yml
+- type: Conventions
+  url: conventions/powerreviews-conventions.yml
+- type: ErrorCatalog
+  url: errors/powerreviews-problem-types.yml
+- type: Conformance
+  url: conformance/powerreviews-conformance.yml
+- type: DataModel
+  url: data-model/powerreviews-data-model.yml
+- type: Components
+  url: components/powerreviews-components.yml
+- type: Packages
+  url: packages/powerreviews-packages.yml
+- type: LLMsTxt
+  url: llms/powerreviews-llms.txt
+- type: MCPServer
+  url: mcp/powerreviews-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/powerreviews-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: RateLimits
+  url: rate-limits/powerreviews-rate-limits.yml
+- type: Plans
+  url: plans/powerreviews-plans-pricing.yml
+- type: DomainSecurity
+  url: security/powerreviews-domain-security.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
