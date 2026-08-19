@@ -1,0 +1,70 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* on every PowerReviews host in apis.yml and the OpenAPI hosts
+note: >-
+  Every /.well-known/ path was probed on all six PowerReviews hosts and every one
+  missed. www.powerreviews.com (WordPress) returns 404 for all paths; the API
+  hosts readservices-b2c.powerreviews.com, writeservices.powerreviews.com and
+  display.powerreviews.com return a JSON 404; developers.powerreviews.com and
+  ui.powerreviews.com sit behind an S3/CloudFront origin that answers 403
+  AccessDenied for any path outside the published prefix. NO WellKnown,
+  SecurityTxt or AgentCard pointer is emitted in apis.yml — this file records a
+  verified absence, not a served surface. The parent company Syndigo answers 200
+  at https://syndigo.com/.well-known/security.txt but the body is the WordPress
+  HTML homepage shell, i.e. a soft 404, not an RFC 9116 document, and it is a
+  different domain from this provider in any case.
+hosts:
+  - host: https://www.powerreviews.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, content_type: text/html}
+      - {path: /.well-known/openid-configuration, status: 404, content_type: text/html}
+      - {path: /.well-known/oauth-authorization-server, status: 404, content_type: text/html}
+      - {path: /.well-known/api-catalog, status: 404, content_type: text/html}
+      - {path: /.well-known/ai-plugin.json, status: 404, content_type: text/html}
+      - {path: /.well-known/agent-card.json, status: 404, content_type: text/html}
+      - {path: /.well-known/agent.json, status: 404, content_type: text/html}
+  - host: https://developers.powerreviews.com
+    note: S3/CloudFront origin returns 403 AccessDenied (application/xml) for all seven paths
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://readservices-b2c.powerreviews.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, content_type: application/json}
+      - {path: /.well-known/openid-configuration, status: 404, content_type: application/json}
+      - {path: /.well-known/oauth-authorization-server, status: 404, content_type: application/json}
+      - {path: /.well-known/api-catalog, status: 404, content_type: application/json}
+      - {path: /.well-known/ai-plugin.json, status: 404, content_type: application/json}
+      - {path: /.well-known/agent-card.json, status: 404, content_type: application/json}
+      - {path: /.well-known/agent.json, status: 404, content_type: application/json}
+  - host: https://writeservices.powerreviews.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, content_type: application/json}
+      - {path: /.well-known/openid-configuration, status: 404, content_type: application/json}
+      - {path: /.well-known/oauth-authorization-server, status: 404, content_type: application/json}
+      - {path: /.well-known/api-catalog, status: 404, content_type: application/json}
+      - {path: /.well-known/ai-plugin.json, status: 404, content_type: application/json}
+      - {path: /.well-known/agent-card.json, status: 404, content_type: application/json}
+      - {path: /.well-known/agent.json, status: 404, content_type: application/json}
+  - host: https://ui.powerreviews.com
+    note: S3/CloudFront origin returns 403 AccessDenied for all seven paths
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://display.powerreviews.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, content_type: application/json}
+      - {path: /.well-known/agent-card.json, status: 404, content_type: application/json}
+      - {path: /.well-known/agent.json, status: 404, content_type: application/json}
+summary:
+  hosts_probed: 6
+  paths_probed: 34
+  documents_found: 0
+  agent_card_found: false
+  security_txt_found: false

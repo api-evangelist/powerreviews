@@ -1,0 +1,100 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the PowerReviews Read API
+  version: 1.0.0
+extends: openapi/powerreviews-readservices-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements derived from the PowerReviews developer portal and live probes on
+  2026-08-13. The harvested Swagger 2.0 document at openapi/_original/ is never
+  mutated; everything the pipeline learned that the provider did not declare is
+  captured here as actions.
+actions:
+  - target: $.info
+    description: Record provenance and the API Evangelist rating context.
+    update:
+      x-apievangelist-provider: powerreviews
+      x-apievangelist-harvested: '2026-08-13'
+      x-apievangelist-source: https://developers.powerreviews.com/Content/reference/api-specs/readservices.yaml
+      x-spec-version: swagger-2.0
+      x-contact-email: support@powerreviews.com
+  - target: $
+    description: >-
+      The document declares host and basePath but omits schemes; the live surface
+      is HTTPS only. Declared here rather than in the original.
+    update:
+      schemes:
+        - https
+  - target: $
+    description: >-
+      Every operation carries an apikey query parameter but the document declares
+      no securityDefinitions. Add the scheme the API actually enforces, verified
+      by a live 401 on 2026-08-13.
+    update:
+      securityDefinitions:
+        apikey:
+          type: apiKey
+          name: apikey
+          in: query
+          description: >-
+            Merchant-scoped ReadServices API key, requested from
+            support@powerreviews.com. Sent as a query parameter; a request
+            without it returns 401 with body
+            {"url":"...","message":"api key is required for authentication","status_code":401}.
+      security:
+        - apikey: []
+  - target: $.definitions.QueryResponse.properties.results
+    description: >-
+      Flag the untyped results array so a consumer knows the read shape is not in
+      the contract rather than assuming it was simply omitted.
+    update:
+      x-apievangelist-note: >-
+        Untyped array. The Review, Question, Answer and Snippet response shapes
+        are not declared anywhere in this document; they must be learned from a
+        live response. This is the single largest contract gap on the Read API.
+  - target: $.paths['/m/{merchantId}/l/{locale}/product/{pageId}/reviews'].get.parameters[?(@.name=='sort')]
+    description: Document the enumerated sort values published on the Read API use-cases page.
+    update:
+      x-apievangelist-enum:
+        - HighestRating
+        - LowestRating
+        - MostHelpful
+        - Oldest
+        - Newest
+      x-apievangelist-source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+  - target: $.paths..get.parameters[?(@.name=='paging.size')]
+    description: Document the published page-size bounds.
+    update:
+      minimum: 1
+      maximum: 25
+      x-apievangelist-note: >-
+        paging.size must be between 1 and 25, and paging.size + paging.from must
+        not exceed 10000. Exceeding either returns an error.
+      x-apievangelist-source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+  - target: $.paths..get.parameters[?(@.name=='updated_date_query')]
+    description: Explain the incremental-sync semantics documented for CRM integration.
+    update:
+      x-apievangelist-note: >-
+        When true, the required `date` parameter (epoch milliseconds) is applied
+        to the last-updated timestamp rather than the created timestamp. This is
+        the documented pattern for feeding review content into a CRM.
+  - target: $.paths..get.responses['401']
+    description: Attach the real error envelope observed live.
+    update:
+      x-apievangelist-example:
+        url: /m/512774/l/en_US/product/7751057291/reviews
+        message: api key is required for authentication
+        status_code: 401
+      x-apievangelist-observed: '2026-08-13'
+  - target: $.info
+    description: Record the published rate limit, which appears nowhere in the contract.
+    update:
+      x-rate-limit:
+        scope: ip-address
+        limit: 1800
+        window: 5 minutes
+        enforcement: ip-block for 5 minutes, extended while traffic stays above threshold
+        headers: none
+        effective: '2019-11-04'
+        source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm

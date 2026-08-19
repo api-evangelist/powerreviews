@@ -1,0 +1,32 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/powerreviews-readservices-openapi.yml,
+  openapi/powerreviews-writeservices-openapi.yml, and the PowerReviews developer
+  portal at https://developers.powerreviews.com/
+note: >-
+  PowerReviews publishes no AGENTS.md and no skill files of its own — the
+  developer portal was crawled in full on 2026-08-13 (15 content pages) and
+  contains only prose documentation. These four skills are generated from the
+  twelve real operationIds in the two published Swagger 2.0 documents, plus the
+  operating rules the portal publishes (paging bounds, sort values, the per-IP
+  rate limit, the mandatory iOvation device fingerprint, pending-status
+  moderation, and the template-before-submit requirement). Every operationId
+  referenced was verified against the specs; none were invented.
+skills:
+  - file: powerreviews-sync-reviews-to-crm.md
+    name: Sync PowerReviews review content into a downstream system
+    api: openapi/powerreviews-readservices-openapi.yml
+    operations: [getAllReviewsUsingGET, getAllQuestionsUsingGET, getAnswersUsingGET]
+  - file: powerreviews-display-product-reviews.md
+    name: Render reviews and rating snippets for product pages
+    api: openapi/powerreviews-readservices-openapi.yml
+    operations: [getProductReviewsUsingGET, getProductSnippetsUsingGET, getQuestionsUsingGET, getAnswersUsingGET, getConfigurationByMerchantUsingGET]
+  - file: powerreviews-submit-review-server-to-server.md
+    name: Submit a review server-to-server
+    api: openapi/powerreviews-writeservices-openapi.yml
+    operations: [startReviewUsingGET, submitReviewUsingPOST]
+  - file: powerreviews-respond-to-reviews.md
+    name: Post merchant responses and Q&A content
+    api: openapi/powerreviews-writeservices-openapi.yml
+    operations: [submitMerchantResponseUsingPOST, submitQuestionUsingPOST, submitAnswerUsingPOST, getAllReviewsUsingGET]

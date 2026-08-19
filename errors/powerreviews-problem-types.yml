@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/powerreviews-readservices-openapi.yml, openapi/powerreviews-writeservices-openapi.yml
+format: proprietary-json
+rfc9457: false
+note: >-
+  Derived from the 4xx responses declared across all twelve operations in the two
+  published Swagger 2.0 documents, then enriched with the real error envelope
+  observed on live unauthenticated and bad-key probes of the Read API on
+  2026-08-13. PowerReviews does not use application/problem+json; there is no
+  documented error-code registry and no machine-readable `type` URI, so the only
+  discriminator an agent gets is the free-text `message` string.
+envelope:
+  content_type: application/json;charset=ISO-8859-1
+  fields:
+    url: the request path that failed
+    message: human-readable failure description
+    status_code: integer mirroring the HTTP status line
+  example: '{"url":"/m/512774/l/en_US/product/7751057291/reviews","message":"api key is required for authentication","status_code":401}'
+problems:
+  - status: 401
+    title: Unauthorized
+    condition: apikey query parameter missing
+    message: api key is required for authentication
+    remediation: >-
+      Supply the merchant-scoped `apikey` query parameter. ReadServices and
+      WriteServices keys are separate; request them from support@powerreviews.com.
+    evidence: live probe 2026-08-13
+    source_operations:
+      - openapi/powerreviews-readservices-openapi.yml#getProductReviewsUsingGET
+      - openapi/powerreviews-readservices-openapi.yml#getAllReviewsUsingGET
+      - openapi/powerreviews-readservices-openapi.yml#getProductSnippetsUsingGET
+      - openapi/powerreviews-readservices-openapi.yml#getQuestionsUsingGET
+      - openapi/powerreviews-readservices-openapi.yml#getAllQuestionsUsingGET
+      - openapi/powerreviews-readservices-openapi.yml#getAnswersUsingGET
+      - openapi/powerreviews-readservices-openapi.yml#getConfigurationByMerchantUsingGET
+      - openapi/powerreviews-writeservices-openapi.yml#startReviewUsingGET
+      - openapi/powerreviews-writeservices-openapi.yml#submitReviewUsingPOST
+      - openapi/powerreviews-writeservices-openapi.yml#submitQuestionUsingPOST
+      - openapi/powerreviews-writeservices-openapi.yml#submitAnswerUsingPOST
+      - openapi/powerreviews-writeservices-openapi.yml#submitMerchantResponseUsingPOST
+  - status: 401
+    title: Unauthorized
+    condition: apikey present but not authorized for this merchant or resource
+    message: 'api key (<masked>) is not authenticated for this request'
+    remediation: >-
+      Confirm the key was issued for the merchantId in the path and for the
+      surface being called — a ReadServices key will not authenticate a
+      WriteServices request.
+    evidence: live probe 2026-08-13
+  - status: 403
+    title: Forbidden
+    condition: declared on every operation in both Swagger documents
+    remediation: >-
+      The key authenticated but the merchant, site, or page is not permitted for
+      the requested content. Verify merchant_id / site_id / page_id scope with
+      PowerReviews.
+    evidence: openapi responses
+  - status: 404
+    title: Not Found
+    condition: declared on every operation in both Swagger documents
+    remediation: >-
+      Verify merchantId, locale, pageId, or questionId. A page id that has no
+      PowerReviews content yet also resolves here.
+    evidence: openapi responses
+  - status: 400
+    title: Paging window exceeded
+    condition: >-
+      paging.size outside 1-25, or paging.size + paging.from greater than 10000
+    remediation: >-
+      Cap paging.size at 25 and keep the offset window under 10000; walk large
+      corpora with the `date` + `updated_date_query` incremental pattern instead
+      of deep offsets.
+    evidence: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+    note: >-
+      The documentation states the API "will return an error" but does not name
+      the status code, and the Swagger documents declare no 400. The status here
+      is inferred from the documented behaviour and is not a provider-published
+      code.
+    confidence: low
+gaps:
+  - no application/problem+json media type
+  - no stable machine-readable error code or type URI
+  - no documented error-code registry page
+  - no 429 declared or observed despite a published rate limit
+  - no 5xx responses declared on any of the twelve operations

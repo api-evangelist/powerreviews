@@ -1,0 +1,78 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry search, registry.npmjs.org, pypi.org, rubygems.org,
+  packagist.org, github.com/powerreviews, and
+  https://developers.powerreviews.com/Content/Home.htm
+note: >-
+  PowerReviews publishes NO first-party client SDK on any public package
+  registry. npm, PyPI, RubyGems, Packagist, crates.io and pkg.go.dev were all
+  searched on 2026-08-13; the only PowerReviews-authored distributable is the
+  CDN-hosted display UI loader, which has no registry entry. No `SDKs` pointer is
+  emitted in apis.yml, because the sdk_count signal it feeds would then be
+  asserting a client library the provider does not ship.
+official_package_count: 0
+official_sdk_count: 0
+registries_searched:
+  - {registry: npm, query: powerreviews, first_party_hits: 0, checked: '2026-08-13'}
+  - {registry: pypi, query: powerreviews, status: 404, checked: '2026-08-13'}
+  - {registry: pypi, query: power-reviews, status: 404, checked: '2026-08-13'}
+  - {registry: rubygems, query: powerreviews, status: 404, checked: '2026-08-13'}
+  - {registry: packagist, query: powerreviews, first_party_hits: 0, checked: '2026-08-13'}
+  - {registry: github, query: 'github.com/powerreviews (17 public repos)', first_party_sdk_hits: 0, checked: '2026-08-13'}
+packages:
+  - language: javascript
+    registry: cdn
+    name: PowerReviews Display UI loader (ui.js)
+    url: https://ui.powerreviews.com/stable/4.1/ui.js
+    install: '<script src="https://ui.powerreviews.com/stable/4.1/ui.js"></script>'
+    official: true
+    kind: browser-loader
+    version: null
+    published: '2026-08-12'
+    note: >-
+      Distributed only from PowerReviews' own CDN — there is no npm, unpkg or
+      jsDelivr entry, so there is no registry metadata endpoint to query and
+      `version: null` is honest rather than unchecked. The URL is pinned to the
+      minor line (`/stable/4.1/`) but not to a patch, so it floats: a consumer
+      cannot tell which build they are getting from the URL. The served bundle's
+      own banner is the only version marker and it dates itself — "PowerReviews,
+      Copyright 2026 / Build: 10570 | 4773c1e75 | 8/12/2026" — which is the
+      `published` date recorded here, read from the artifact fetched on
+      2026-08-13. The 4.0 line is still served alongside it.
+    surfaces:
+      - https://ui.powerreviews.com/stable/4.1/ui.js
+      - https://ui.powerreviews.com/stable/4.0/ui.js
+    detail: components/powerreviews-components.yml
+third_party:
+  - language: javascript
+    registry: npm
+    name: react-pr
+    url: https://www.npmjs.com/package/react-pr
+    version: 0.1.1
+    published: '2018-08-30'
+    official: false
+    publisher: tbaustin
+    repository: https://github.com/escaladesports/react-power-reviews.git
+    note: >-
+      A React wrapper for the PowerReviews display widget published by Escalade
+      Sports, not by PowerReviews. Unmaintained since 2018. Recorded for
+      completeness; it is not a PowerReviews artifact.
+  - language: php
+    registry: packagist
+    name: powerreviews/dummy-pkg
+    url: https://packagist.org/packages/powerreviews/dummy-pkg
+    version: null
+    published: null
+    official: false
+    note: >-
+      A dependency-confusion placeholder published under the `powerreviews`
+      Packagist vendor namespace by github.com/m-vendors, described as
+      "Preventing Dependency Confusion in PHP with Composer". Not first party and
+      not a client library; noted so a later pass does not mistake the vendor
+      namespace for an official one.
+gaps:
+  - no first-party server-side SDK in any language
+  - no CLI
+  - no OpenAPI-generated client published by the provider
+  - the one first-party distributable has no registry entry and no pinned version

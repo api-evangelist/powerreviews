@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.powerreviews.com/Content/Getting%20Started%20APIs/Requesting%20an%20API%20Key.htm
+docs: https://developers.powerreviews.com/Content/Getting%20Started%20APIs/Requesting%20an%20API%20Key.htm
+note: >-
+  The published Swagger 2.0 documents declare no securityDefinitions, so
+  derive-authentication.py produced no profile. This file is written from the
+  provider's own Getting Started documentation plus the apikey query parameter
+  that appears on every operation in both specs, and from a live unauthenticated
+  probe of the Read API that returned the real 401 envelope.
+summary:
+  types: [apiKey]
+  api_key_in: [query]
+  oauth2_flows: []
+  keys_are_per_surface: true
+  self_service: false
+schemes:
+  - name: apikey
+    type: apiKey
+    in: query
+    parameter: apikey
+    description: >-
+      Merchant-scoped API key passed as the `apikey` query parameter on every
+      request. Keys are issued per API surface — the ReadServices key and the
+      WriteServices key are separate credentials and a consumer integrating both
+      needs two keys.
+    sources:
+      - openapi/powerreviews-readservices-openapi.yml
+      - openapi/powerreviews-writeservices-openapi.yml
+    surfaces:
+      - api: PowerReviews Read API
+        host: readservices-b2c.powerreviews.com
+        key_name: read_services
+        required: true
+      - api: PowerReviews Write API
+        host: writeservices.powerreviews.com
+        key_name: write_services
+        required: true
+provisioning:
+  self_service: false
+  method: email-request
+  contact: support@powerreviews.com
+  instructions: >-
+    Email support@powerreviews.com with the brand being supported and a brief
+    description of the integration requirements so PowerReviews can grant the
+    correct access. ReadServices and WriteServices keys are unique, so two keys
+    may be required.
+  third_party_campaigns:
+    contact: sampling@powerreviews.com
+    note: >-
+      Agencies collecting review content on behalf of a brand (sampling,
+      sweepstakes, in-person testing) request credentials, an API key, and page
+      ids through the sampling intake, not the general support queue.
+    source: https://developers.powerreviews.com/Content/Getting%20Started%20APIs/Third%20Party%20API%20Integration.htm
+scoping:
+  tenant_parameter: merchantId
+  note: >-
+    Authorization is merchant-scoped. Every Read API path is rooted at
+    /m/{merchantId}; Write API operations carry merchant_id / merchant_group_id /
+    site_id / page_id query parameters. A key is only authenticated for the
+    merchant it was issued against.
+failure_modes:
+  - status: 401
+    condition: apikey query parameter absent
+    body: '{"url":"<path>","message":"api key is required for authentication","status_code":401}'
+    observed: '2026-08-13'
+  - status: 401
+    condition: apikey present but not authorized for the requested merchant or resource
+    body: '{"url":"<path>","message":"api key (00000**************************00000) is not authenticated for this request","status_code":401}'
+    note: the key value is partially masked back to the caller in the message
+    observed: '2026-08-13'
+  - status: 403
+    condition: declared in both Swagger documents as Forbidden
+transport:
+  https_required: true
+  key_in_url: true
+  warning: >-
+    The credential travels in the query string, so it is exposed to proxy logs,
+    browser history, and Referer headers. PowerReviews publishes no header-based
+    alternative and no OAuth surface.
+oauth2: false
+mtls: false
+openid_connect: false

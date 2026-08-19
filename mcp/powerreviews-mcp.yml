@@ -1,0 +1,102 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: >-
+  openapi/powerreviews-readservices-openapi.yml,
+  openapi/powerreviews-writeservices-openapi.yml
+note: >-
+  PowerReviews ships NO MCP server. The MCP registry returns zero results for
+  both "powerreviews" and "syndigo"; the developer portal, the GitHub org
+  (17 public repos) and npm carry no MCP package. The tools below are a CANDIDATE
+  surface derived one-to-one from the twelve operations in the two published
+  Swagger 2.0 documents so the shape of a future server is on record — they are
+  not callable today and no endpoint is asserted.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    `mode: none` because nobody ships a server. If PowerReviews were to publish
+    one, auth would be the merchant-scoped `apikey` query credential documented
+    in authentication/powerreviews-authentication.yml, which is issued by email
+    rather than self-service — an MCP server would need to solve provisioning
+    before it could solve invocation.
+searched:
+  - {source: 'https://registry.modelcontextprotocol.io/v0/servers?search=powerreviews', result: 0 servers, checked: '2026-08-13'}
+  - {source: 'https://registry.modelcontextprotocol.io/v0/servers?search=syndigo', result: 0 servers, checked: '2026-08-13'}
+  - {source: 'https://registry.npmjs.org/-/v1/search?text=powerreviews', result: no MCP package, checked: '2026-08-13'}
+  - {source: 'https://github.com/powerreviews', result: no MCP repository among 17 public repos, checked: '2026-08-13'}
+  - {source: 'https://developers.powerreviews.com/Content/Home.htm', result: no agent or MCP documentation, checked: '2026-08-13'}
+server:
+  name: powerreviews
+  transport: null
+  url: null
+tools:
+  - name: get_product_reviews
+    description: Get reviews for one product page for a merchant and locale, with sorting and paging.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getProductReviewsUsingGET
+    read_only: true
+  - name: get_all_reviews
+    description: Get all reviews for a merchant created or updated since a date, for incremental sync.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getAllReviewsUsingGET
+    read_only: true
+  - name: get_product_snippets
+    description: Get aggregate rating and review-count snippets for one or more product page ids.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getProductSnippetsUsingGET
+    read_only: true
+  - name: get_questions
+    description: Get questions asked about one product page for a merchant and locale.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getQuestionsUsingGET
+    read_only: true
+  - name: get_all_questions
+    description: Get all questions for a merchant since a date.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getAllQuestionsUsingGET
+    read_only: true
+  - name: get_answers
+    description: Get answers to a specific question.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getAnswersUsingGET
+    read_only: true
+  - name: get_merchant_configuration
+    description: Get a merchant's display configuration and localizations for a locale.
+    source_operation: openapi/powerreviews-readservices-openapi.yml#getConfigurationByMerchantUsingGET
+    read_only: true
+  - name: get_review_template
+    description: Get the locale-aware write-a-review form definition for a product page id.
+    source_operation: openapi/powerreviews-writeservices-openapi.yml#startReviewUsingGET
+    read_only: true
+  - name: submit_review
+    description: Submit a review for a product. Requires an iOvation device fingerprint; enters pending moderation.
+    source_operation: openapi/powerreviews-writeservices-openapi.yml#submitReviewUsingPOST
+    read_only: false
+    consequence: write
+    human_in_the_loop: recommended
+  - name: submit_question
+    description: Submit a question about a product. Requires an iOvation device fingerprint.
+    source_operation: openapi/powerreviews-writeservices-openapi.yml#submitQuestionUsingPOST
+    read_only: false
+    consequence: write
+  - name: submit_answer
+    description: Submit an answer to an existing question.
+    source_operation: openapi/powerreviews-writeservices-openapi.yml#submitAnswerUsingPOST
+    read_only: false
+    consequence: write
+  - name: submit_merchant_response
+    description: Post a merchant reply to a review.
+    source_operation: openapi/powerreviews-writeservices-openapi.yml#submitMerchantResponseUsingPOST
+    read_only: false
+    consequence: write
+caveats:
+  - >-
+    The Write API has no idempotency contract, so a retried submit_* tool call can
+    create duplicate user-generated content. Any real server would need to
+    de-duplicate on merchant_question_id / unique_review_id.
+  - >-
+    The Read API's QueryResponse.results is untyped, so a derived tool cannot
+    advertise an accurate output schema.
+  - >-
+    Review submission requires an iOvation device-fingerprint BlackBox value
+    produced by a browser script; a headless agent cannot generate one.
+crosswalk: mcp/powerreviews-tool-crosswalk.yml

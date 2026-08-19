@@ -1,0 +1,124 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/powerreviews-readservices-openapi.yml,
+  openapi/powerreviews-writeservices-openapi.yml, live probes 2026-08-13
+note: >-
+  Derived from the two published Swagger 2.0 documents, the developer portal, and
+  live probes. PowerReviews publishes no compliance or certification program of
+  its own that could be verified — trust.powerreviews.com does not resolve,
+  /security/ 404s on both powerreviews.com and syndigo.com, and
+  probe-security-programs.py found neither a vulnerability-disclosure surface nor
+  a trust center. NO `Compliance` pointer is emitted for this file; it asserts
+  standards conformance only, and every negative below is a verified absence.
+standards:
+  - id: openapi-3
+    conforms: false
+    evidence: >-
+      Both published documents are Swagger 2.0 (`swagger: "2.0"`). PowerReviews
+      has never published an OpenAPI 3.x contract.
+  - id: swagger-2.0
+    conforms: true
+    evidence: >-
+      readservices.yaml and writeservices.yaml both declare swagger 2.0 with
+      paths, definitions, host and basePath, and render in Swagger UI at
+      developers.powerreviews.com/Content/reference/.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No securityDefinitions of any kind in either document; authentication is an
+      `apikey` query parameter. /.well-known/oauth-authorization-server 404s on
+      every host.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returned 404 or 403 on all six hosts probed 2026-08-13.
+  - id: api-key-auth
+    conforms: true
+    evidence: >-
+      Every operation in both specs carries an `apikey` query parameter; a live
+      request without it returns 401 "api key is required for authentication".
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Error responses are application/json with a proprietary
+      {url,message,status_code} envelope, not application/problem+json.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt 404s on powerreviews.com and all API hosts.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: >-
+      A deprecation policy page exists and announced a real sunset date for
+      api.powerreviews.com, but no Sunset or Deprecation response header is
+      documented or observed.
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: 34 well-known path probes across 6 hosts, zero documents returned.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: /.well-known/agent-card.json and /.well-known/agent.json miss on all six hosts.
+  - id: mcp
+    conforms: false
+    evidence: >-
+      No MCP server in the MCP registry, in the provider docs, or on the
+      PowerReviews GitHub org.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      No event, streaming, or webhook surface is documented; PowerReviews has no
+      event contract to describe. Not applicable rather than failed.
+    applicable: false
+  - id: json-api
+    conforms: false
+    evidence: Responses are bespoke JSON envelopes (QueryResponse, PagingResponse, B2BResponse).
+  - id: http-caching
+    conforms: partial
+    evidence: >-
+      Both surfaces are fronted by Amazon CloudFront (via, x-amz-cf-id, x-cache
+      headers observed 2026-08-13) and the docs direct consumers to cache
+      responses client-side, but no Cache-Control or ETag contract is published.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No idempotency key, no request-id echo, and no replay semantics on any of
+      the five Write API operations.
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Offset pagination via paging.size / paging.from with documented bounds
+      (1-25 per page, 10000 maximum window) and a PagingResponse envelope.
+  - id: gtin-upc-product-identifiers
+    conforms: true
+    evidence: >-
+      getAllReviews and getProductReviews return product UPC and GTIN on the
+      review.details object where available (changelog 2019-03-17).
+  - id: schema-org-review
+    conforms: unknown
+    evidence: >-
+      PowerReviews markets rich-snippet/SEO benefit for review content, but no
+      schema.org Review/AggregateRating mapping is published on the developer
+      portal and the display markup is generated client-side by ui.js.
+compliance_program:
+  published: false
+  trust_center: null
+  certifications: []
+  evidence:
+    - {url: 'https://trust.powerreviews.com/', status: 000, note: does not resolve, checked: '2026-08-13'}
+    - {url: 'https://www.powerreviews.com/security/', status: 404, checked: '2026-08-13'}
+    - {url: 'https://syndigo.com/security/', status: 404, checked: '2026-08-13'}
+    - {url: 'https://syndigo.com/trust-center/', status: 404, checked: '2026-08-13'}
+    - {url: 'https://syndigo.com/.well-known/security.txt', status: 200, note: 'HTML homepage shell, soft 404 — not an RFC 9116 document', checked: '2026-08-13'}
+  note: >-
+    probe-security-programs.py returned vdp=none trust=none for this provider on
+    2026-08-13. PowerReviews does publish a Review Authenticity policy
+    (https://www.powerreviews.com/review-authenticity/) and enforces device
+    fingerprinting on submission, which is a content-integrity posture rather
+    than an information-security certification.
+content_integrity_policy:
+  url: https://www.powerreviews.com/review-authenticity/
+  status: 200
+  checked: '2026-08-13'
+  mechanisms:
+    - iOvation device fingerprinting required on API review submission
+    - pending-status moderation on all API-submitted content
+    - audit flag recorded for content submitted via API endpoints

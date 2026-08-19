@@ -1,0 +1,46 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.powerreviews.com/Content/What's%20New/Changelog.htm
+scheme: dated-entries
+format: HTML table with Date / Feature-Endpoint / Change columns
+current_version: null
+note: >-
+  The full published changelog, captured verbatim from the developer portal. This
+  is not a recent window — it is the entire table. PowerReviews has published no
+  changelog entry since 2019-04-24, which is the single clearest signal that this
+  API surface is in maintenance rather than active development.
+newest_entry: '2019-04-24'
+oldest_entry: '2019-01-04'
+entry_count: 5
+entries:
+  - date: '2019-04-24'
+    scope: [getProductReviews, getAllReviews]
+    kind: addition
+    breaking: false
+    highlight: Added page_id_variant to the getProductReviews and getAllReviews endpoints.
+  - date: '2019-04-10'
+    scope: [getAllReviews]
+    kind: addition
+    breaking: false
+    highlight: Added a sort request parameter to the getAllReviews endpoint.
+  - date: '2019-03-17'
+    scope: [getAllReviews, getProductReviews]
+    kind: addition
+    breaking: false
+    highlight: >-
+      The getAllReviews and getProductReviews endpoints now return the product UPC
+      and GTIN as part of the `review.details` object when that information is
+      available.
+  - date: '2019-01-17'
+    scope: [MerchantResponse API Endpoints]
+    kind: addition
+    breaking: false
+    highlight: Added MerchantResponse Endpoints to PowerReviews Swagger API Documentation.
+  - date: '2019-01-04'
+    scope: [documentation]
+    kind: announcement
+    breaking: false
+    highlight: Launched the new PowerReviews API documentation site.
+related:
+  deprecations: https://developers.powerreviews.com/Content/What's%20New/Deprecated%20Functionality.htm
+  lifecycle: lifecycle/powerreviews-lifecycle.yml

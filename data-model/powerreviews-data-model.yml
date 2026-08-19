@@ -1,0 +1,149 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/powerreviews-readservices-openapi.yml,
+  openapi/powerreviews-writeservices-openapi.yml
+note: >-
+  Entity-relationship graph derived from the $ref links and id-reference fields
+  in the two published Swagger 2.0 documents, plus the path structure of the Read
+  API. The Read API is deliberately weakly typed — its QueryResponse.results is
+  an untyped array, so the shape of a Review, Question, or Answer as returned is
+  NOT described in the contract and cannot be derived from it. Everything below
+  marked `contract: implicit` is inferred from paths and parameters, not from a
+  declared schema.
+identifiers:
+  - id: merchantId
+    aka: [merchant_id]
+    type: string on Read API paths, integer on the configuration path and Write API query
+    role: tenant key; roots every Read API path as /m/{merchantId}
+  - id: merchant_group_id
+    type: integer
+    role: groups merchants on the Write API; scopes a submission above the merchant
+  - id: site_id
+    type: string
+    role: distinguishes storefronts within a merchant on the Write API
+  - id: pageId
+    aka: [page_id, pageIds]
+    type: string
+    role: >-
+      product identifier. The Read API snippet operation accepts a comma-joined
+      list (`pageIds`); all other operations take a single `pageId`.
+  - id: page_id_variant
+    type: string
+    role: product variant discriminator, added to reviews 2019-04-24
+  - id: locale
+    type: string
+    example: en_US
+    role: language/market segment on both surfaces
+  - id: questionId
+    aka: [question_id]
+    type: string on the Read path, integer on AnswerData
+    role: parent key for answers
+    inconsistency: >-
+      The same identifier is typed as a path string on the Read API and as an
+      integer on Write API AnswerData.question_id.
+  - id: review_ugc_id
+    type: integer
+    role: identifies the review a merchant response replies to
+  - id: merchant_user_id
+    type: string
+    role: the merchant's own identifier for the reviewer
+  - id: merchant_question_id
+    type: string
+    role: the merchant's own identifier for a question, for idempotent-ish matching
+  - id: unique_review_id
+    type: string
+    role: caller-supplied review correlator on the review template request
+  - id: order_id
+    type: string
+    role: links a review invitation to a transaction
+entities:
+  - name: Merchant
+    contract: partial
+    schemas: [ConfigurationResponse, MerchantInformation]
+    key: merchantId
+    description: >-
+      The tenant. Carries display configuration, localizations, feature flags,
+      logos, promo markup, and return URL.
+  - name: Product
+    contract: partial
+    schemas: [ProductInformation]
+    key: page_id
+    fields: [name, page_id, variant, locale, full_product_url, full_product_image_urls, product_lookup_location]
+    description: >-
+      The reviewable page. Product UPC and GTIN are returned on review.details
+      where available (changelog 2019-03-17) but are not declared in any schema.
+  - name: Review
+    contract: implicit
+    schemas: [WriteAReviewB2BPostRequest, B2BReviewData]
+    description: >-
+      Only the submission and template shapes are typed. The returned review
+      object is carried inside the untyped QueryResponse.results array.
+  - name: ReviewTemplate
+    contract: declared
+    schemas: [B2BReviewData, BaseReviewField«object», SimpleReviewField, CompositeReviewField, CollectionReviewField, WriteAReviewB2BContextInformation]
+    description: >-
+      The locale- and product-aware form definition returned by
+      startReviewUsingGET. Fields are polymorphic (simple / composite /
+      collection) and carry id, key, label, group, helper_text, required, hidden
+      and an embedded error_message.
+  - name: Question
+    contract: declared-on-write
+    schemas: [QuestionData, QuestionResponse]
+    key: question_id
+    fields: [question_text, question_type, merchant_question_category, author_name, author_email, author_location, is_seeded, iovation_black_box]
+  - name: Answer
+    contract: declared-on-write
+    schemas: [AnswerData, AnswerResponse]
+    fields: [answer_text, answer_source, is_expert, is_verified_buyer, is_seeded, is_import, is_eligible_for_notification, iovation_black_box]
+  - name: MerchantResponse
+    contract: declared-on-write
+    schemas: [MerchantResponseData]
+    fields: [text, review_ugc_id, author_name, author_email, author_location]
+    description: A merchant's public reply to a review.
+  - name: Snippet
+    contract: implicit
+    description: >-
+      Aggregate rating and review-count summary for one or more page ids, returned
+      through QueryResponse.
+  - name: Paging
+    contract: declared
+    schemas: [PagingResponse]
+    fields: [current_page_number, page_size, pages_total, total_results, next_page_url]
+  - name: Error
+    contract: declared-on-write
+    schemas: [B2BResponse, ErrorMessage]
+    note: >-
+      The Write API declares a structured error envelope (error_code, message,
+      status_code, details[]). The Read API returns a different, undeclared
+      envelope ({url, message, status_code}) observed live on 2026-08-13.
+relationships:
+  - {from: Merchant, to: Product, kind: has_many, via: page_id}
+  - {from: Merchant, to: Review, kind: has_many, via: merchantId, evidence: 'GET /m/{merchantId}/reviews'}
+  - {from: Merchant, to: Question, kind: has_many, via: merchantId, evidence: 'GET /m/{merchantId}/questions'}
+  - {from: Merchant, to: ConfigurationResponse, kind: has_one, via: merchant_id, evidence: 'GET /m/{merchant_id}/l/{locale}/configuration'}
+  - {from: Product, to: Review, kind: has_many, via: pageId, evidence: 'GET /m/{merchantId}/l/{locale}/product/{pageId}/reviews'}
+  - {from: Product, to: Question, kind: has_many, via: pageId, evidence: 'GET /m/{merchantId}/l/{locale}/product/{pageId}/questions'}
+  - {from: Product, to: Snippet, kind: has_many, via: pageIds, evidence: 'GET /m/{merchantId}/l/{locale}/product/{pageIds}/snippet'}
+  - {from: Question, to: Answer, kind: has_many, via: questionId, evidence: 'GET /m/{merchantId}/l/{locale}/question/{questionId}/answers'}
+  - {from: Answer, to: Question, kind: belongs_to, via: question_id, evidence: AnswerData.question_id}
+  - {from: MerchantResponse, to: Review, kind: belongs_to, via: review_ugc_id, evidence: MerchantResponseData.review_ugc_id}
+  - {from: QueryResponse, to: PagingResponse, kind: has_one, via: paging, evidence: $ref}
+  - {from: QueryResponse, to: ConfigurationResponse, kind: has_one, via: configuration, evidence: $ref}
+  - {from: AnswerResponse, to: AnswerData, kind: has_one, via: answer_data, evidence: $ref}
+  - {from: AnswerResponse, to: QuestionData, kind: has_one, via: question_data, evidence: $ref}
+  - {from: AnswerResponse, to: MerchantInformation, kind: has_one, via: merchant_information, evidence: $ref}
+  - {from: AnswerResponse, to: ProductInformation, kind: has_one, via: product_information, evidence: $ref}
+  - {from: QuestionResponse, to: QuestionData, kind: has_one, via: question_data, evidence: $ref}
+  - {from: QuestionResponse, to: MerchantInformation, kind: has_one, via: merchant_information, evidence: $ref}
+  - {from: QuestionResponse, to: ProductInformation, kind: has_one, via: product_information, evidence: $ref}
+  - {from: B2BReviewData, to: WriteAReviewB2BContextInformation, kind: has_one, via: context_information, evidence: $ref}
+  - {from: B2BReviewData, to: BaseReviewField, kind: has_many, via: fields, evidence: $ref array}
+  - {from: WriteAReviewB2BPostRequest, to: BaseReviewField, kind: has_many, via: fields, evidence: $ref array}
+  - {from: B2BResponse, to: ErrorMessage, kind: has_many, via: details, evidence: $ref array}
+gaps:
+  - QueryResponse.results is an untyped array — the Review, Question, Answer and Snippet read shapes are undeclared
+  - ConfigurationResponse.features / localizations / properties are untyped objects
+  - SimpleReviewField, CompositeReviewField and CollectionReviewField are declared with no type and no properties
+  - questionId is a string on the Read path and an integer on AnswerData
+  - no schema declares UPC/GTIN despite the changelog stating they are returned

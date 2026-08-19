@@ -1,0 +1,156 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+docs: https://developers.powerreviews.com/Content/Home.htm
+note: >-
+  Cross-cutting request/response semantics for the PowerReviews Read and Write
+  APIs, searched from the developer portal use-case pages and derived from the
+  two published Swagger 2.0 documents plus a live unauthenticated probe of the
+  Read API on 2026-08-13.
+authentication:
+  style: api-key-in-query
+  parameter: apikey
+  detail: authentication/powerreviews-authentication.yml
+tenancy:
+  model: merchant-scoped
+  read_path_prefix: /m/{merchantId}
+  locale_segment: /l/{locale}
+  locale_example: en_US
+  write_parameters: [merchant_id, merchant_group_id, site_id, page_id, page_id_variant, locale]
+pagination:
+  style: offset
+  supported_on: [getProductReviews, getAllReviews, getProductSnippets, getQuestions, getAllQuestions, getAnswers]
+  params:
+    size: paging.size
+    offset: paging.from
+  limits:
+    max_page_size: 25
+    min_page_size: 1
+    max_window: 10000
+    rule: >-
+      paging.size must be between 1 and 25, and paging.size + paging.from cannot
+      exceed 10000. Exceeding either returns an error from the API.
+  response_envelope: PagingResponse
+  source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+sorting:
+  param: sort
+  values: [HighestRating, LowestRating, MostHelpful, Oldest, Newest]
+  applies_to: [getProductReviews, getAllReviews, getQuestions]
+  source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+filtering:
+  - param: date
+    type: epoch-milliseconds
+    required_on: [getAllReviews, getAllQuestions]
+    description: Lower bound on the content date; combine with updated_date_query for change feeds.
+  - param: updated_date_query
+    type: boolean
+    description: >-
+      When true, `date` is interpreted against the last-updated timestamp rather
+      than the created timestamp. This is the documented CRM incremental-sync
+      pattern.
+  - param: image_only
+    type: boolean
+    applies_to: [getProductReviews]
+  - param: f
+    type: array
+    applies_to: write API operations
+    description: field selector array on the WriteServices endpoints
+idempotency:
+  supported: false
+  note: >-
+    PowerReviews publishes no idempotency key, no request-id echo, and no
+    documented replay semantics on the Write API. Review, question, answer, and
+    merchant-response submissions are plain POSTs; a retry after a timeout may
+    create a duplicate. NO `Idempotency` pointer is emitted in apis.yml because
+    the contract genuinely does not exist.
+request_tracing:
+  request_id_header: null
+  observed_response_headers:
+    - x-frame-options
+    - x-content-type-options
+    - x-xss-protection
+    - via
+    - x-amz-cf-id
+    - x-amz-cf-pop
+    - x-cache
+  note: >-
+    Both API surfaces sit behind Amazon CloudFront. The only per-request
+    correlator returned is the CloudFront `x-amz-cf-id`, which is edge
+    infrastructure, not an application request id.
+  observed: '2026-08-13'
+error_envelope:
+  format: proprietary-json
+  rfc9457: false
+  content_type: application/json;charset=ISO-8859-1
+  shape:
+    url: the request path that failed
+    message: human-readable failure description
+    status_code: integer mirroring the HTTP status
+  example: '{"url":"/m/512774/l/en_US/product/7751057291/reviews","message":"api key is required for authentication","status_code":401}'
+  write_api_shape:
+    note: >-
+      The WriteServices Swagger declares an ErrorMessage definition on B2BResponse
+      rather than the Read API envelope; the two surfaces do not share an error
+      shape.
+  detail: errors/powerreviews-problem-types.yml
+  observed: '2026-08-13'
+rate_limiting:
+  documented: true
+  signal: none
+  detail: rate-limits/powerreviews-rate-limits.yml
+  note: >-
+    A limit is published in prose (1800 requests per IP per 5 minutes on the Read
+    API) but the API returns no RateLimit-* or Retry-After headers and no 429 —
+    the documented enforcement is an IP block. There is no runtime signal an
+    agent can read.
+content_negotiation:
+  produces: [application/json]
+  consumes: [application/json]
+  charset: ISO-8859-1 returned on error responses
+versioning:
+  scheme: none-in-path
+  note: >-
+    Neither surface carries a version segment. readservices info.version is
+    1.0.0; writeservices info.version is 0.0.0. Breaking changes are announced on
+    the changelog page rather than through a version selector.
+  detail: lifecycle/powerreviews-lifecycle.yml
+expansion:
+  supported: false
+metadata:
+  supported: false
+webhooks:
+  published: false
+  note: PowerReviews documents no webhook, event, or streaming surface.
+caching:
+  guidance: >-
+    PowerReviews explicitly recommends caching Read API responses rather than
+    calling the API on each page load, both for page speed and to stay under the
+    IP rate limit.
+  source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+content_integrity:
+  device_fingerprint:
+    required: true
+    field: iovation_black_box
+    vendor: iOvation
+    applies_to: review submission via the Write API
+    note: >-
+      A device fingerprint produced by the iOvation snare.js script is a required
+      field on API review submission; it feeds PowerReviews fraud screening and
+      is needed for Open Syndication Network syndication.
+    source: https://developers.powerreviews.com/Content/Write%20API/iOvation.htm
+  moderation:
+    note: >-
+      Only pending-status reviews are accepted by the Write API endpoints;
+      submitted content is moderated before it appears.
+    source: https://developers.powerreviews.com/Content/Write%20API/Use%20Cases.htm
+  template_first:
+    note: >-
+      PowerReviews documents calling GetReviewTemplate (startReviewUsingGET)
+      before every submission so the integration picks up the current field set
+      for the page id and locale rather than a cached copy.
+cross_links:
+  authentication: authentication/powerreviews-authentication.yml
+  errors: errors/powerreviews-problem-types.yml
+  lifecycle: lifecycle/powerreviews-lifecycle.yml
+  rate_limits: rate-limits/powerreviews-rate-limits.yml
+  data_model: data-model/powerreviews-data-model.yml

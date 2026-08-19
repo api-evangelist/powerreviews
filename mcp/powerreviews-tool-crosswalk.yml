@@ -1,0 +1,115 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/powerreviews-mcp.yml, openapi/powerreviews-readservices-openapi.yml, openapi/powerreviews-writeservices-openapi.yml
+note: >-
+  PowerReviews publishes no MCP server and no GraphQL surface, so this crosswalk
+  binds the CANDIDATE tool set in mcp/powerreviews-mcp.yml to the REST operations
+  it was derived from. Every binding is therefore high confidence by construction
+  and there are no mcp_only rows — the value here is the surfaces block and the
+  record that REST is the only projection PowerReviews exposes.
+surfaces:
+  openapi:
+    - file: openapi/powerreviews-readservices-openapi.yml
+      host: readservices-b2c.powerreviews.com
+      spec: Swagger 2.0
+      gated: false
+      note: spec is publicly fetchable; the API itself requires a merchant apikey
+    - file: openapi/powerreviews-writeservices-openapi.yml
+      host: writeservices.powerreviews.com
+      spec: Swagger 2.0
+      gated: false
+  graphql:
+    endpoint: null
+    note: no GraphQL surface published
+  mcp:
+    url: null
+    status: none
+    note: no MCP server exists; tools below are derived candidates, not callable
+crosswalk:
+  - tool: get_product_reviews
+    category: reviews
+    rest: [getProductReviewsUsingGET]
+    binding: rest
+    confidence: high
+  - tool: get_all_reviews
+    category: reviews
+    rest: [getAllReviewsUsingGET]
+    binding: rest
+    confidence: high
+    note: the incremental-sync entry point; date + updated_date_query drive change feeds
+  - tool: get_product_snippets
+    category: aggregates
+    rest: [getProductSnippetsUsingGET]
+    binding: rest
+    confidence: high
+    note: accepts a comma-joined list of page ids, so one tool call fans out across products
+  - tool: get_questions
+    category: qa
+    rest: [getQuestionsUsingGET]
+    binding: rest
+    confidence: high
+  - tool: get_all_questions
+    category: qa
+    rest: [getAllQuestionsUsingGET]
+    binding: rest
+    confidence: high
+  - tool: get_answers
+    category: qa
+    rest: [getAnswersUsingGET]
+    binding: rest
+    confidence: high
+  - tool: get_merchant_configuration
+    category: configuration
+    rest: [getConfigurationByMerchantUsingGET]
+    binding: rest
+    confidence: high
+  - tool: get_review_template
+    category: collection
+    rest: [startReviewUsingGET]
+    binding: rest
+    confidence: high
+    note: must be called before submit_review so the field set matches the current template
+  - tool: submit_review
+    category: collection
+    rest: [submitReviewUsingPOST]
+    binding: rest
+    confidence: high
+  - tool: submit_question
+    category: qa
+    rest: [submitQuestionUsingPOST]
+    binding: rest
+    confidence: high
+  - tool: submit_answer
+    category: qa
+    rest: [submitAnswerUsingPOST]
+    binding: rest
+    confidence: high
+  - tool: submit_merchant_response
+    category: engagement
+    rest: [submitMerchantResponseUsingPOST]
+    binding: rest
+    confidence: high
+mcp_only: []
+graphql_only: []
+rest_only: []
+input_schema_quality:
+  note: >-
+    Each tool inherits its backing operation's parameters as its real input
+    schema. Read API tools inherit fully typed query and path parameters. Write
+    API tools inherit a typed requestBody ($ref to AnswerData / QuestionData /
+    MerchantResponseData / WriteAReviewB2BPostRequest) plus nine to twelve
+    optional query parameters, of which merchant_id, page_id and site_id are
+    effectively required in practice but are not marked required in the spec.
+  weak_bindings:
+    - operation: submitReviewUsingPOST
+      issue: fields[] is polymorphic (BaseReviewField«object») and the concrete subtypes are declared with no properties
+    - operation: getProductReviewsUsingGET
+      issue: 200 response is QueryResponse whose results[] is an untyped array — output schema is unavailable
+coverage:
+  tools_named: 12
+  tools_bound: 12
+  mcp_only: 0
+  graphql_only: 0
+  rest_operations_total: 12
+  rest_operations_with_tool: 12
+  binding_rate: 1.0

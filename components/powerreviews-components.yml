@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: https://ui.powerreviews.com/stable/4.1/ui.js
+note: >-
+  PowerReviews' primary integration surface for most customers is not the HTTP
+  API at all — it is a client-side display library loaded from
+  ui.powerreviews.com that renders reviews, ratings, snippets, Q&A and the
+  write-a-review form directly into a retailer's product detail page. The loader
+  was probed live on 2026-08-13. PowerReviews publishes no public component
+  reference on developers.powerreviews.com (that portal documents only the Read
+  and Write HTTP APIs), so the component families below are recorded from the
+  served artifact and the product pages, and the per-component configuration
+  reference remains customer-only.
+distribution:
+  kind: cdn-script
+  host: ui.powerreviews.com
+  lines:
+    - {path: /stable/4.1/ui.js, status: 200, bytes: 43176, content_type: application/javascript}
+    - {path: /stable/4.0/ui.js, status: 200, bytes: 61904, content_type: application/javascript}
+  pinning: minor-line only; the URL does not pin a patch or build
+  build_banner: 'PowerReviews, Copyright 2026 | Build: 10570 | 4773c1e75 | 8/12/2026'
+  build_date: '2026-08-12'
+  global: '[[PowerreviewsGlobalObject]]'
+  probed: '2026-08-13'
+  significance: >-
+    The display bundle was rebuilt the day before this probe, while the HTTP API
+    changelog has stood still since 2019. The two surfaces are on completely
+    different maintenance tracks: the widget is a living product, the documented
+    API is not.
+families:
+  - name: Ratings & Reviews display
+    kind: embedded-widget
+    description: >-
+      Renders the review list, star ratings, distribution histogram, and review
+      filtering/sorting into a product detail page container.
+    product_page: https://www.powerreviews.com/products/ratings-reviews/
+  - name: Review snippets
+    kind: embedded-widget
+    description: >-
+      Compact star-rating and review-count summary for category, search, and
+      listing pages. The HTTP equivalent is the Read API
+      getProductSnippetsUsingGET operation.
+    api_equivalent: openapi/powerreviews-readservices-openapi.yml#getProductSnippetsUsingGET
+  - name: Write-a-Review form
+    kind: embedded-form
+    description: >-
+      The hosted review submission experience. The server-to-server equivalent is
+      the Write API pair startReviewUsingGET (template) plus submitReviewUsingPOST.
+    api_equivalent:
+      - openapi/powerreviews-writeservices-openapi.yml#startReviewUsingGET
+      - openapi/powerreviews-writeservices-openapi.yml#submitReviewUsingPOST
+  - name: Questions & Answers
+    kind: embedded-widget
+    description: >-
+      Q&A display and submission on the product page. HTTP equivalents are
+      getQuestionsUsingGET / getAnswersUsingGET on the Read API and
+      submitQuestionUsingPOST / submitAnswerUsingPOST on the Write API.
+    product_page: https://www.powerreviews.com/products/ratings-reviews/questions-answers/
+  - name: Image & Video UGC
+    kind: embedded-widget
+    description: Visual user-generated content galleries attached to review content.
+    product_page: https://www.powerreviews.com/products/ratings-reviews/image-video/
+configuration_api:
+  operation: openapi/powerreviews-readservices-openapi.yml#getConfigurationByMerchantUsingGET
+  path: /m/{merchant_id}/l/{locale}/configuration
+  note: >-
+    The Read API exposes the merchant's display configuration
+    (ConfigurationResponse) for a locale, which is the machine-readable half of
+    what the widget consumes at render time.
+third_party_dependency:
+  vendor: iOvation
+  scripts:
+    test: https://ci-mpsnare.iovation.com/snare.js
+    production: https://mpsnare.iesnare.com/snare.js
+  purpose: >-
+    Device fingerprinting for content-authenticity screening. The BlackBox value
+    returned by ioGetBlackbox().blackbox must accompany any review submitted
+    through the Write API.
+  required: true
+  source: https://developers.powerreviews.com/Content/Write%20API/iOvation.htm
+gaps:
+  - no public component/configuration reference on the developer portal
+  - no npm distribution and no pinned CDN build URL
+  - no published changelog for the UI bundle

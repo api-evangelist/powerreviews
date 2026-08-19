@@ -1,0 +1,94 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the PowerReviews Write API
+  version: 1.0.0
+extends: openapi/powerreviews-writeservices-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements derived from the PowerReviews developer portal (Write API use
+  cases, iOvation integration, third-party campaign integration) on 2026-08-13.
+  The harvested Swagger 2.0 document at openapi/_original/ is never mutated.
+actions:
+  - target: $.info
+    description: Record provenance and correct the empty version string on the record.
+    update:
+      x-apievangelist-provider: powerreviews
+      x-apievangelist-harvested: '2026-08-13'
+      x-apievangelist-source: https://developers.powerreviews.com/Content/reference/api-specs/writeservices.yaml
+      x-spec-version: swagger-2.0
+      x-apievangelist-note: >-
+        info.version is declared as 0.0.0 and has never been incremented. The
+        surface carries no version segment in the path and no version header.
+  - target: $
+    description: The document omits schemes; the live surface is HTTPS only.
+    update:
+      schemes:
+        - https
+  - target: $
+    description: >-
+      Declare the apiKey scheme the WriteServices surface enforces. The
+      WriteServices key is a SEPARATE credential from the ReadServices key.
+    update:
+      securityDefinitions:
+        apikey:
+          type: apiKey
+          name: apikey
+          in: query
+          description: >-
+            Merchant-scoped WriteServices API key, requested from
+            support@powerreviews.com (or sampling@powerreviews.com for agency
+            campaign integrations). Distinct from the ReadServices key.
+      security:
+        - apikey: []
+  - target: $.definitions.WriteAReviewB2BPostRequest.properties.iovation_black_box
+    description: Mark the device fingerprint as required by policy even though the schema does not.
+    update:
+      x-apievangelist-required-by-policy: true
+      x-apievangelist-note: >-
+        iOvation device fingerprint information is a required field for review
+        submission through the API. The value is the BlackBox string returned by
+        ioGetBlackbox().blackbox after loading snare.js in the browser
+        (https://mpsnare.iesnare.com/snare.js in production,
+        https://ci-mpsnare.iovation.com/snare.js for test accounts). A headless
+        integration cannot generate one.
+      x-apievangelist-source: https://developers.powerreviews.com/Content/Write%20API/iOvation.htm
+  - target: $.paths['/api/b2b/writereview/submit_review'].post
+    description: Record the moderation and template-first operating rules.
+    update:
+      x-apievangelist-note: >-
+        Only pending-status reviews are accepted; submitted content is moderated
+        before it appears. Call startReviewUsingGET immediately before every
+        submission so the field set matches the current template for the page id
+        and locale rather than a cached copy.
+      x-apievangelist-source: https://developers.powerreviews.com/Content/Write%20API/Use%20Cases.htm
+  - target: $.paths..post
+    description: >-
+      Flag the absence of an idempotency contract on every write operation — the
+      most consequential gap on this surface for an automated caller.
+    update:
+      x-idempotency:
+        supported: false
+        key_header: null
+        note: >-
+          No idempotency key, no request-id echo, and no replay semantics. A
+          retry after a timeout can create duplicate user-generated content.
+          De-duplicate client-side on merchant_question_id or unique_review_id.
+  - target: $.definitions.BaseReviewField«object»
+    description: Flag the polymorphic field model whose subtypes carry no properties.
+    update:
+      x-apievangelist-note: >-
+        SimpleReviewField, CompositeReviewField and CollectionReviewField are
+        declared in this document with no type and no properties, so the concrete
+        shape of a template field cannot be resolved from the contract. Read the
+        live startReviewUsingGET response instead.
+  - target: $.info
+    description: Record the mandatory campaign fields published for third-party integrations.
+    update:
+      x-apievangelist-required-campaign-fields:
+        - headline
+        - rating
+        - comments
+        - location
+        - nickname
+      x-apievangelist-source: https://developers.powerreviews.com/Content/Getting%20Started%20APIs/Third%20Party%20API%20Integration.htm

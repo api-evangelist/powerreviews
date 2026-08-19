@@ -1,0 +1,463 @@
+swagger: '2.0'
+info:
+  description: >-
+    You can use the Read API to return reviews, questions, and answers left on 
+    your products by your customers. This is helpful especially if you're using 
+    customizations on your website, have a mobile app where you want review content 
+    to appear, or if you want to integrate and feed review data into third-party 
+    software. You can retrieve this information by making GET calls to the Read API.
+  version: 1.0.0
+  title: Read Services
+  termsOfService: 'http://www.powerreviews.com/terms-of-use/'
+host: readservices-b2c.powerreviews.com
+basePath: /
+tags:
+  - name: Reviews
+    description: Endpoints for product reviews by merchant
+  - name: Q&A
+    description: Endpoints for product questions and answers by merchant
+  - name: Snippets
+    description: Endpoints for product snippets by merchant
+  - name: Configuration 
+    description: Endpoints for merchant configuration
+paths:
+  '/m/{merchantId}/l/{locale}/product/{pageIds}/snippet':
+    get:
+      tags:
+        - Snippets
+      summary: getProductSnippets
+      operationId: getProductSnippetsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: apikey
+          in: query
+          required: true
+          type: string
+          description: The API Key PowerReviews provides you.
+        - name: merchantId
+          in: path
+          required: true
+          type: string
+          description: Your unique merchant ID.
+        - name: locale
+          in: path
+          required: true
+          type: string
+          description: The locale of the review data you want to return. This parameter is a two number code for the language and country. For example fr_FR. 
+        - name: pageIds
+          in: path
+          required: true
+          type: string
+          description: The unique page id for the product you want to view the snippets for.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/m/{merchantId}/l/{locale}/product/{pageId}/questions':
+    get:
+      tags:
+        - Q&A
+      summary: getQuestions
+      operationId: getQuestionsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: paging.size
+          in: query
+          required: false
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 25
+          description: The number of questions you want to return.
+        - name: paging.from
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The Question where you want to start returning Questions from. If you want reviews from page one, omit this parameter. 
+        - name: sort
+          in: query
+          required: false
+          type: string
+          enum:
+            - Oldest
+            - Newest
+            - MostAnswers
+          description: The order in which you want to return your Questions. Acceptable fields include Oldest, Newest, or MostAnswers.
+        - name: apikey
+          in: query
+          required: false
+          type: string
+          description: The API Key PowerReviews provides you.
+        - name: merchantId
+          in: path
+          required: true
+          type: string
+          description: Your unique merchant ID.
+        - name: locale
+          in: path
+          required: true
+          type: string
+          description: The locale of the review data you want to return. This parameter is a two number code for the language and country. For example fr_FR. 
+        - name: pageId
+          in: path
+          required: true
+          type: string
+          description: The unique page id for the product you want to view the questions for.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/m/{merchantId}/l/{locale}/product/{pageId}/reviews':
+    get:
+      tags:
+        - Reviews
+      summary: getProductReviews
+      operationId: getProductReviewsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: paging.size
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The number of Product Reviews you want to return.
+        - name: paging.from
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The Review where you want to start returning Product Reviews from. If you want reviews from page one, omit this parameter. 
+        - name: sort
+          in: query
+          required: false
+          type: string
+          enum:
+            - HighestRating
+            - LowestRating
+            - MostHelpful
+            - Oldest
+            - Newest
+          description: The order in which you want to return your Product Reviews. Acceptable fields include LowestRating, HighestRating, MostHelpful, Oldest, Newest.
+        - name: image_only
+          in: query
+          required: false
+          type: boolean
+          enum:
+            - true
+            - false
+          description: If true only return reviews with images
+        - name: apikey
+          in: query
+          required: true
+          type: string
+          description: The API Key PowerReviews provides you.
+        - name: merchantId
+          in: path
+          required: true
+          type: string
+          description: Your unique merchant ID.
+        - name: locale
+          in: path
+          required: true
+          type: string
+          description: The locale of the review data you want to return. This parameter is a two number code for the language and country. For example fr_FR. 
+        - name: pageId
+          in: path
+          required: true
+          type: string
+          description: The unique page id for the product you want to view the questions for.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/m/{merchantId}/reviews':
+    get:
+      tags:
+        - Reviews
+      summary: getAllReviews
+      operationId: getAllReviewsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: paging.size
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The number of Product Reviews you want to return.
+        - name: paging.from
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The review where you want to start returning Product Reviews from. If you want reviews from page one, omit this parameter. 
+        - name: sort
+          in: query
+          required: false
+          type: string
+          enum:
+            - HighestRating
+            - LowestRating
+            - MostHelpful
+            - Oldest
+            - Newest
+          description: The order in which you want to return your Product Reviews. Acceptable fields include LowestRating, HighestRating, MostHelpful, Oldest, Newest.
+        - name: updated_date_query
+          in: query
+          required: false
+          type: boolean
+          enum:
+            - true
+            - false
+          description: If true return reviews based on updated date instead of created date.
+        - name: date
+          in: query
+          required: true
+          type: long
+          description: the starting time where you want to pull product reviews from. Date terminates using today's date. This parameter should be in Unix time in milliseconds.
+        - name: apikey
+          in: query
+          required: true
+          type: string
+          description: The API Key PowerReviews provides you.
+        - name: merchantId
+          in: path
+          required: true
+          type: string
+          description: Your unique merchant ID.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/m/{merchantId}/questions':
+    get:
+      tags:
+        - Q&A
+      summary: getAllQuestions
+      operationId: getAllQuestionsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: paging.size
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The number of Product Questions you want to return.
+        - name: paging.from
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The Question where you want to start returning Product Questions from. If you want reviews from page one, omit this parameter. 
+        - name: date
+          in: query
+          required: true
+          type: long
+          description: the starting time where you want to pull product reviews from. Date terminates using today's date. This parameter should be in Unix time in milliseconds.
+        - name: apikey
+          in: query
+          required: true
+          type: string
+          description: The API Key PowerReviews provides you.
+        - name: merchantId
+          in: path
+          required: true
+          type: string
+          description: Your unique merchant ID.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/m/{merchantId}/l/{locale}/question/{questionId}/answers':
+    get:
+      tags:
+        - Q&A
+      summary: getAnswers
+      operationId: getAnswersUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: paging.size
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The number of answers you want to return.
+        - name: paging.from
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The Answer where you want to start returning Answers from. If you want reviews from page one, omit this parameter. 
+        - name: apikey
+          in: query
+          required: true
+          type: string
+          description: The API Key PowerReviews provides you.
+        - name: merchantId
+          in: path
+          required: true
+          type: string
+          description: Your unique merchant ID.
+        - name: locale
+          in: path
+          required: true
+          type: string
+          description: The locale of the review data you want to return. This parameter is a two number code for the language and country. For example fr_FR. 
+        - name: questionId
+          in: path
+          required: true
+          type: string
+          description: The unique question id for the question you want to view the answers for.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/QueryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/m/{merchant_id}/l/{locale}/configuration':
+    get:
+      tags:
+        - Configuration
+      summary: getConfigurationByMerchant
+      operationId: getConfigurationByMerchantUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: merchant_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+          description: Your unique merchant ID.
+        - name: locale
+          in: path
+          required: true
+          type: string
+          description: The locale of the review data you want to return. This parameter is a two number code for the language and country. For example fr_FR. 
+        - name: apikey
+          in: query
+          required: true
+          type: string
+          description: The API Key PowerReviews provides you.
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ConfigurationResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+definitions:
+  ConfigurationResponse:
+    type: object
+    properties:
+      features:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+      localizations:
+        type: object
+        additionalProperties:
+          type: string
+      properties:
+        type: object
+  PagingResponse:
+    type: object
+    properties:
+      current_page_number:
+        type: integer
+        format: int32
+      next_page_url:
+        type: string
+      page_size:
+        type: integer
+        format: int32
+      pages_total:
+        type: integer
+        format: int64
+      total_results:
+        type: integer
+        format: int64
+  QueryResponse:
+    type: object
+    properties:
+      configuration:
+        $ref: '#/definitions/ConfigurationResponse'
+      name:
+        type: string
+        enum:
+          - snippet
+          - review
+          - questions
+          - answers
+      paging:
+        $ref: '#/definitions/PagingResponse'
+      results:
+        type: array
+        items:
+          type: object

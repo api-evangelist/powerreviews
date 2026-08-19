@@ -1,0 +1,95 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.powerreviews.com/Content/What's%20New/Changelog.htm
+note: >-
+  PowerReviews publishes a dated changelog, a deprecated-functionality page, and
+  a public status page. All three are real and all three are stale: the newest
+  changelog entry is 2019-04-24 and the only deprecation notice describes a
+  sunset that completed in 2019. The underlying documentation repository
+  (github.com/powerreviews/api-documentation) has had no content commit since
+  2020-09-25.
+versioning:
+  scheme: none
+  current: null
+  docs: null
+  note: >-
+    Neither surface carries a version segment in the path or a version header.
+    readservices.yaml declares info.version 1.0.0; writeservices.yaml declares
+    info.version 0.0.0. There is no published versioning policy.
+deprecation:
+  policy_url: https://developers.powerreviews.com/Content/What's%20New/Deprecated%20Functionality.htm
+  policy_published: true
+  sunset_header: false
+  deprecation_header: false
+  notices:
+    - subject: api.powerreviews.com
+      announced_on_page: https://developers.powerreviews.com/Content/What's%20New/Deprecated%20Functionality.htm
+      sunset_date: '2019-09-30'
+      statement: >-
+        On 9/30/2019, PowerReviews will no longer support any requests to
+        api.powerreviews.com. Please use the Read API documentation to assist in
+        migration.
+      verified: >-
+        https://api.powerreviews.com/ returned HTTP 404 on 2026-08-13, consistent
+        with the announced sunset having completed.
+  note: >-
+    The page exists and states a real sunset with a real date, which is more than
+    most providers publish — but it has carried exactly one notice for seven
+    years and offers no forward-looking policy (no notice period, no Sunset/
+    Deprecation header commitment, no migration window guarantee).
+deprecated_operations: []
+changelog:
+  url: https://developers.powerreviews.com/Content/What's%20New/Changelog.htm
+  index: https://developers.powerreviews.com/Content/What's%20New/What's%20New.htm
+  format: dated HTML table (Date / Feature-Endpoint / Change)
+  entry_count: 5
+  newest_entry: '2019-04-24'
+  oldest_entry: '2019-01-04'
+  detail: changelog/powerreviews-changelog.yml
+status_page:
+  url: http://status.powerreviews.com/
+  provider: Pingdom Public Reports
+  https: false
+  note: >-
+    The status page is linked from the powerreviews.com footer as "System Status"
+    and serves over http only — https://status.powerreviews.com does not resolve
+    a TLS connection. It is a 7-day uptime grid with no incident history feed, no
+    RSS/Atom, and no JSON API.
+  probed: '2026-08-13'
+  http_status: 200
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    The developer portal's Contact Us page references "PowerReviews Platform
+    Support Offerings" for SLAs and response times, but that document is not
+    publicly linked or reachable — support tiers sit behind the customer
+    relationship.
+support:
+  general: support@powerreviews.com
+  campaign_integrations: sampling@powerreviews.com
+  contact_form: https://www.powerreviews.com/contact/
+  docs_contact: https://developers.powerreviews.com/Content/Contact%20Us.htm
+maintenance_windows:
+  code_freeze:
+    observed: true
+    note: >-
+      PowerReviews publishes an annual holiday code-freeze notice on its blog
+      (most recently "Holiday Code Freeze 2025"), which functions as a de facto
+      change-management calendar for retail peak season.
+    source: blogs/2025-10-17-holiday-code-freeze-2025.md
+corporate:
+  parent: Syndigo
+  note: >-
+    PowerReviews is part of Syndigo — the powerreviews.com privacy notice now
+    301s to syndigo.com/legal/privacy-notice/. Syndigo's own developer
+    documentation (docx.syndigo.com) covers the Riversand/Ascend PIM line and
+    contains zero references to PowerReviews, so the two API estates have not
+    been merged.
+  verified: '2026-08-13'
+decay_signals:
+  - newest changelog entry is 2019-04-24
+  - only deprecation notice describes a sunset completed in 2019
+  - documentation repository last content commit 2020-09-25
+  - writeservices.yaml still declares info.version 0.0.0
+  - no first-party SDK on any package registry

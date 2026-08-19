@@ -1,0 +1,1300 @@
+{
+"swagger": "2.0",
+"info": {
+"description": "API for interacting with PowerReviews WriteServices.",
+"version": "0.0.0",
+"title": "PowerReviews B2B API",
+"termsOfService": "https://www.powerreviews.com/terms-of-use/"
+},
+"host": "writeservices.powerreviews.com",
+"basePath": "/",
+"tags": [
+{
+"name": "B2B Answer",
+"description": "Endpoint for submitting answers."
+},
+{
+"name": "B2B MerchantResponse",
+"description": "Endpoint for submitting merchant responses."
+},
+{
+"name": "B2B Question",
+"description": "Endpoint for submitting questions"
+},
+{
+"name": "B2B Write a Review",
+"description": "Endpoints designed to provide external integration to PowerReviews WAR"
+}
+],
+"paths": {
+"/api/b2b/answer": {
+"post": {
+"tags": [
+"B2B Answer"
+],
+"summary": "Submit an answer",
+"description": "Creates an answer for a given question.",
+"operationId": "submitAnswerUsingPOST",
+"consumes": [
+"application/json"
+],
+"produces": [
+"application/json"
+],
+"parameters": [
+{
+"in": "body",
+"name": "answerData",
+"description": "answerData",
+"required": true,
+"schema": {
+"$ref": "#/definitions/AnswerData"
+}
+},
+{
+"name": "apikey",
+"in": "query",
+"description": "Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.",
+"required": false,
+"type": "string",
+"format": "uuid"
+},
+{
+"name": "f",
+"in": "query",
+"description": "Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.",
+"required": false,
+"type": "array",
+"items": {
+"type": "string"
+},
+"collectionFormat": "multi"
+},
+{
+"name": "locale",
+"in": "query",
+"description": "Locale used for the api call. If not provided, will default to the merchant’s communication locale.",
+"required": false,
+"type": "string",
+"x-example": "en_US"
+},
+{
+"name": "merchant_group_id",
+"in": "query",
+"description": "PowerReviews assigned MerchantGroup identifier. Use with `site_id`.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_id",
+"in": "query",
+"description": "PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "page_id",
+"in": "query",
+"description": "The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id_variant",
+"in": "query",
+"description": "The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.",
+"required": false,
+"type": "string"
+},
+{
+"name": "site_id",
+"in": "query",
+"description": "Client’s internal site identifier. Use with `merchant_group_id`.",
+"required": false,
+"type": "string"
+}
+],
+"responses": {
+"200": {
+"description": "OK",
+"schema": {
+"$ref": "#/definitions/AnswerResponse"
+}
+},
+"201": {
+"description": "Created"
+},
+"401": {
+"description": "Unauthorized"
+},
+"403": {
+"description": "Forbidden"
+},
+"404": {
+"description": "Not Found"
+}
+},
+"deprecated": false
+}
+},
+"/api/b2b/merchant-response": {
+"post": {
+"tags": [
+"B2B MerchantResponse"
+],
+"summary": "Submit a merchant response",
+"description": "Creates a merchant response for a given review.",
+"operationId": "submitMerchantResponseUsingPOST",
+"consumes": [
+"application/json"
+],
+"produces": [
+"application/json"
+],
+"parameters": [
+{
+"name": "apikey",
+"in": "query",
+"description": "Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.",
+"required": false,
+"type": "string",
+"format": "uuid"
+},
+{
+"name": "f",
+"in": "query",
+"description": "Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.",
+"required": false,
+"type": "array",
+"items": {
+"type": "string"
+},
+"collectionFormat": "multi"
+},
+{
+"name": "locale",
+"in": "query",
+"description": "Locale used for the api call. If not provided, will default to the merchant’s communication locale.",
+"required": false,
+"type": "string",
+"x-example": "en_US"
+},
+{
+"in": "body",
+"name": "merchantResponseData",
+"description": "merchantResponseData",
+"required": true,
+"schema": {
+"$ref": "#/definitions/MerchantResponseData"
+}
+},
+{
+"name": "merchant_group_id",
+"in": "query",
+"description": "PowerReviews assigned MerchantGroup identifier. Use with `site_id`.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_id",
+"in": "query",
+"description": "PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "page_id",
+"in": "query",
+"description": "The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id_variant",
+"in": "query",
+"description": "The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.",
+"required": false,
+"type": "string"
+},
+{
+"name": "site_id",
+"in": "query",
+"description": "Client’s internal site identifier. Use with `merchant_group_id`.",
+"required": false,
+"type": "string"
+}
+],
+"responses": {
+"200": {
+"description": "OK",
+"schema": {
+"$ref": "#/definitions/B2BResponse"
+}
+},
+"201": {
+"description": "Created"
+},
+"401": {
+"description": "Unauthorized"
+},
+"403": {
+"description": "Forbidden"
+},
+"404": {
+"description": "Not Found"
+}
+},
+"deprecated": false
+}
+},
+"/api/b2b/question": {
+"post": {
+"tags": [
+"B2B Question"
+],
+"summary": "Submit a question",
+"description": "Creates a question for a given product or service",
+"operationId": "submitQuestionUsingPOST",
+"consumes": [
+"application/json"
+],
+"produces": [
+"application/json"
+],
+"parameters": [
+{
+"name": "apikey",
+"in": "query",
+"description": "Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.",
+"required": false,
+"type": "string",
+"format": "uuid"
+},
+{
+"name": "f",
+"in": "query",
+"description": "Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.",
+"required": false,
+"type": "array",
+"items": {
+"type": "string"
+},
+"collectionFormat": "multi"
+},
+{
+"name": "locale",
+"in": "query",
+"description": "Locale used for the api call. If not provided, will default to the merchant’s communication locale.",
+"required": false,
+"type": "string",
+"x-example": "en_US"
+},
+{
+"name": "merchant_group_id",
+"in": "query",
+"description": "PowerReviews assigned MerchantGroup identifier. Use with `site_id`.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_id",
+"in": "query",
+"description": "PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "page_id",
+"in": "query",
+"description": "The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id_variant",
+"in": "query",
+"description": "The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.",
+"required": false,
+"type": "string"
+},
+{
+"in": "body",
+"name": "questionData",
+"description": "questionData",
+"required": true,
+"schema": {
+"$ref": "#/definitions/QuestionData"
+}
+},
+{
+"name": "site_id",
+"in": "query",
+"description": "Client’s internal site identifier. Use with `merchant_group_id`.",
+"required": false,
+"type": "string"
+}
+],
+"responses": {
+"200": {
+"description": "OK",
+"schema": {
+"$ref": "#/definitions/QuestionResponse"
+}
+},
+"201": {
+"description": "Created"
+},
+"401": {
+"description": "Unauthorized"
+},
+"403": {
+"description": "Forbidden"
+},
+"404": {
+"description": "Not Found"
+}
+},
+"deprecated": false
+}
+},
+"/api/b2b/writereview/review_template": {
+"get": {
+"tags": [
+"B2B Write a Review"
+],
+"summary": "Get review template",
+"description": "Gets the review template for a given product or service.",
+"operationId": "startReviewUsingGET",
+"produces": [
+"application/json"
+],
+"parameters": [
+{
+"name": "apikey",
+"in": "query",
+"description": "Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.",
+"required": false,
+"type": "string",
+"format": "uuid"
+},
+{
+"name": "f",
+"in": "query",
+"description": "Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.",
+"required": false,
+"type": "array",
+"items": {
+"type": "string"
+},
+"collectionFormat": "multi"
+},
+{
+"name": "locale",
+"in": "query",
+"description": "Locale used for the api call. If not provided, will default to the merchant’s communication locale.",
+"required": false,
+"type": "string",
+"x-example": "en_US"
+},
+{
+"name": "merchant_group_id",
+"in": "query",
+"description": "PowerReviews assigned MerchantGroup identifier. Use with `site_id`.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_id",
+"in": "query",
+"description": "PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_user_email",
+"in": "query",
+"description": "Known email address for for a client user.",
+"required": false,
+"type": "string"
+},
+{
+"name": "merchant_user_id",
+"in": "query",
+"description": "Client internal identifier for a user.  Allows lookup of that user’s saved user profile data within the PowerReviews platform.",
+"required": false,
+"type": "string"
+},
+{
+"name": "order_id",
+"in": "query",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id",
+"in": "query",
+"description": "The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id_variant",
+"in": "query",
+"description": "The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.",
+"required": false,
+"type": "string"
+},
+{
+"name": "site_id",
+"in": "query",
+"description": "Client’s internal site identifier. Use with `merchant_group_id`.",
+"required": false,
+"type": "string"
+},
+{
+"name": "unique_review_id",
+"in": "query",
+"description": "Merchant provided identifier to identify duplicate submissions for a review.",
+"required": false,
+"type": "string"
+}
+],
+"responses": {
+"200": {
+"description": "OK",
+"schema": {
+"$ref": "#/definitions/B2BReviewData"
+}
+},
+"401": {
+"description": "Unauthorized"
+},
+"403": {
+"description": "Forbidden"
+},
+"404": {
+"description": "Not Found"
+}
+},
+"deprecated": false
+}
+},
+"/api/b2b/writereview/submit_review": {
+"post": {
+"tags": [
+"B2B Write a Review"
+],
+"summary": "Submit a review",
+"description": "Submits the given review.",
+"operationId": "submitReviewUsingPOST",
+"consumes": [
+"application/json"
+],
+"produces": [
+"application/json"
+],
+"parameters": [
+{
+"name": "apikey",
+"in": "query",
+"description": "Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.",
+"required": false,
+"type": "string",
+"format": "uuid"
+},
+{
+"name": "f",
+"in": "query",
+"description": "Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.",
+"required": false,
+"type": "array",
+"items": {
+"type": "string"
+},
+"collectionFormat": "multi"
+},
+{
+"name": "locale",
+"in": "query",
+"description": "Locale used for the api call. If not provided, will default to the merchant’s communication locale.",
+"required": false,
+"type": "string",
+"x-example": "en_US"
+},
+{
+"name": "merchant_group_id",
+"in": "query",
+"description": "PowerReviews assigned MerchantGroup identifier. Use with `site_id`.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_id",
+"in": "query",
+"description": "PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.",
+"required": false,
+"type": "integer",
+"format": "int64"
+},
+{
+"name": "merchant_user_email",
+"in": "query",
+"description": "Known email address for for a client user.",
+"required": false,
+"type": "string"
+},
+{
+"name": "merchant_user_id",
+"in": "query",
+"description": "Client internal identifier for a user.  Allows lookup of that user’s saved user profile data within the PowerReviews platform.",
+"required": false,
+"type": "string"
+},
+{
+"name": "order_id",
+"in": "query",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id",
+"in": "query",
+"description": "The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.",
+"required": false,
+"type": "string"
+},
+{
+"name": "page_id_variant",
+"in": "query",
+"description": "The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.",
+"required": false,
+"type": "string"
+},
+{
+"in": "body",
+"name": "request",
+"description": "request",
+"required": true,
+"schema": {
+"$ref": "#/definitions/WriteAReviewB2BPostRequest"
+}
+},
+{
+"name": "site_id",
+"in": "query",
+"description": "Client’s internal site identifier. Use with `merchant_group_id`.",
+"required": false,
+"type": "string"
+},
+{
+"name": "unique_review_id",
+"in": "query",
+"description": "Merchant provided identifier to identify duplicate submissions for a review.",
+"required": false,
+"type": "string"
+}
+],
+"responses": {
+"200": {
+"description": "OK",
+"schema": {
+"$ref": "#/definitions/B2BReviewData"
+}
+},
+"201": {
+"description": "Created"
+},
+"401": {
+"description": "Unauthorized"
+},
+"403": {
+"description": "Forbidden"
+},
+"404": {
+"description": "Not Found"
+}
+},
+"deprecated": false
+}
+}
+},
+"definitions": {
+"AnswerData": {
+"type": "object",
+"properties": {
+"answer_source": {
+"type": "string"
+},
+"answer_text": {
+"type": "string"
+},
+"author_email": {
+"type": "string"
+},
+"author_location": {
+"type": "string"
+},
+"author_name": {
+"type": "string"
+},
+"iovation_black_box": {
+"type": "string"
+},
+"is_eligible_for_notification": {
+"type": "boolean"
+},
+"is_expert": {
+"type": "boolean"
+},
+"is_import": {
+"type": "boolean"
+},
+"is_seeded": {
+"type": "boolean"
+},
+"is_verified_buyer": {
+"type": "boolean"
+},
+"merchant_question_id": {
+"type": "string"
+},
+"merchant_user_id": {
+"type": "string"
+},
+"question_id": {
+"type": "integer",
+"format": "int64"
+}
+},
+"title": "AnswerData"
+},
+"AnswerResponse": {
+"type": "object",
+"properties": {
+"answer_data": {
+"$ref": "#/definitions/AnswerData"
+},
+"days_since_asked": {
+"type": "integer",
+"format": "int64"
+},
+"form_localizations": {
+"type": "object"
+},
+"merchant_information": {
+"$ref": "#/definitions/MerchantInformation"
+},
+"product_information": {
+"$ref": "#/definitions/ProductInformation"
+},
+"question_data": {
+"$ref": "#/definitions/QuestionData"
+}
+},
+"title": "AnswerResponse"
+},
+"B2BResponse": {
+"type": "object",
+"properties": {
+"details": {
+"type": "array",
+"items": {
+"$ref": "#/definitions/ErrorMessage"
+}
+},
+"error_code": {
+"type": "string"
+},
+"message": {
+"type": "string"
+},
+"status_code": {
+"type": "string",
+"enum": [
+"100",
+"101",
+"102",
+"103",
+"200",
+"201",
+"202",
+"203",
+"204",
+"205",
+"206",
+"207",
+"208",
+"226",
+"300",
+"301",
+"302",
+"303",
+"304",
+"305",
+"307",
+"308",
+"400",
+"401",
+"402",
+"403",
+"404",
+"405",
+"406",
+"407",
+"408",
+"409",
+"410",
+"411",
+"412",
+"413",
+"414",
+"415",
+"416",
+"417",
+"418",
+"419",
+"420",
+"421",
+"422",
+"423",
+"424",
+"426",
+"428",
+"429",
+"431",
+"451",
+"500",
+"501",
+"502",
+"503",
+"504",
+"505",
+"506",
+"507",
+"508",
+"509",
+"510",
+"511"
+]
+}
+},
+"title": "B2BResponse"
+},
+"B2BReviewData": {
+"type": "object",
+"properties": {
+"context_information": {
+"$ref": "#/definitions/WriteAReviewB2BContextInformation"
+},
+"fields": {
+"type": "array",
+"items": {
+"$ref": "#/definitions/BaseReviewField«object»"
+}
+},
+"started_timestamp": {
+"type": "string"
+}
+},
+"title": "B2BReviewData"
+},
+"BaseReviewField«object»": {
+"type": "object",
+"properties": {
+"error_message": {
+"$ref": "#/definitions/ErrorMessage"
+},
+"field_type": {
+"type": "string",
+"enum": [
+"simple",
+"collection",
+"composite"
+]
+},
+"group": {
+"type": "string"
+},
+"helper_text": {
+"type": "string"
+},
+"hidden": {
+"type": "boolean"
+},
+"id": {
+"type": "string"
+},
+"key": {
+"type": "string"
+},
+"label": {
+"type": "string"
+},
+"required": {
+"type": "boolean"
+},
+"responsive_hint": {
+"type": "string"
+}
+},
+"title": "BaseReviewField«object»"
+},
+"CollectionReviewField": {
+"title": "CollectionReviewField",
+"allOf": [
+{
+"$ref": "#/definitions/BaseReviewField«object»"
+},
+{
+"type": "object",
+"properties": {
+"answer_type": {
+"type": "string",
+"enum": [
+"single",
+"multiple"
+]
+},
+"choices": {
+"type": "array",
+"items": {
+# "$ref": "#/definitions/IdAndValue"
+}
+},
+"error_message": {
+"$ref": "#/definitions/ErrorMessage"
+},
+"field_type": {
+"type": "string",
+"enum": [
+"simple",
+"collection",
+"composite"
+]
+},
+"group": {
+"type": "string"
+},
+"helper_text": {
+"type": "string"
+},
+"hidden": {
+"type": "boolean"
+},
+"id": {
+"type": "string"
+},
+"input_type": {
+"type": "string",
+"enum": [
+"CheckboxVertical",
+"RadioVertical",
+"RadioHorizontal",
+"RadioHorizontalLinked",
+"Dropdown",
+"AgeDisclosure"
+]
+},
+"key": {
+"type": "string"
+},
+"label": {
+"type": "string"
+},
+"required": {
+"type": "boolean"
+},
+"responsive_hint": {
+"type": "string"
+},
+"values": {
+"type": "array",
+"items": {
+# "$ref": "#/definitions/IdAndValue"
+}
+}
+},
+"title": "CollectionReviewField"
+}
+]
+},
+"CompositeReviewField": {
+"title": "CompositeReviewField",
+"allOf": [
+{
+"$ref": "#/definitions/BaseReviewField«object»"
+},
+{
+"type": "object",
+"properties": {
+"composite_data": {
+"type": "object"
+},
+"composite_type": {
+"type": "string",
+"enum": [
+"Image",
+"Video",
+"NativeVideo",
+"Simple"
+]
+},
+"count": {
+"type": "integer",
+"format": "int32"
+},
+"error_message": {
+"$ref": "#/definitions/ErrorMessage"
+},
+"field_type": {
+"type": "string",
+"enum": [
+"simple",
+"collection",
+"composite"
+]
+},
+"fields": {
+"type": "array",
+"items": {
+"$ref": "#/definitions/BaseReviewField«object»"
+}
+},
+"group": {
+"type": "string"
+},
+"helper_text": {
+"type": "string"
+},
+"hidden": {
+"type": "boolean"
+},
+"id": {
+"type": "string"
+},
+"key": {
+"type": "string"
+},
+"label": {
+"type": "string"
+},
+"prompt": {
+"type": "string"
+},
+"required": {
+"type": "boolean"
+},
+"responsive_hint": {
+"type": "string"
+}
+},
+"title": "CompositeReviewField"
+}
+]
+},
+"ErrorMessage": {
+"type": "object",
+"properties": {
+"detail": {
+"type": "object"
+},
+"error_code": {
+"type": "string"
+},
+"fields": {
+"type": "array",
+"items": {
+"type": "object"
+}
+},
+"message": {
+"type": "string"
+}
+},
+"title": "ErrorMessage"
+},
+"MerchantInformation": {
+"type": "object",
+"properties": {
+"configuration": {
+"type": "object"
+},
+"large_logo_image_url": {
+"type": "string"
+},
+"name": {
+"type": "string"
+},
+"promo_markup": {
+"type": "string"
+},
+"return_url": {
+"type": "string"
+},
+"small_logo_image_url": {
+"type": "string"
+}
+},
+"title": "MerchantInformation"
+},
+"MerchantResponseData": {
+"type": "object",
+"properties": {
+"author_email": {
+"type": "string"
+},
+"author_location": {
+"type": "string"
+},
+"author_name": {
+"type": "string"
+},
+"review_ugc_id": {
+"type": "integer",
+"format": "int64"
+},
+"text": {
+"type": "string"
+}
+},
+"title": "MerchantResponseData"
+},
+"ProductInformation": {
+"type": "object",
+"properties": {
+"full_product_image_urls": {
+"type": "object",
+"additionalProperties": {
+"type": "string"
+}
+},
+"full_product_url": {
+"type": "string"
+},
+"locale": {
+"type": "string"
+},
+"name": {
+"type": "string"
+},
+"page_id": {
+"type": "string"
+},
+"product_lookup_location": {
+"type": "string"
+},
+"variant": {
+"type": "string"
+}
+},
+"title": "ProductInformation"
+},
+"QuestionData": {
+"type": "object",
+"properties": {
+"author_email": {
+"type": "string"
+},
+"author_location": {
+"type": "string"
+},
+"author_name": {
+"type": "string"
+},
+"iovation_black_box": {
+"type": "string"
+},
+"is_seeded": {
+"type": "boolean"
+},
+"merchant_question_category": {
+"type": "string"
+},
+"merchant_question_id": {
+"type": "string"
+},
+"merchant_user_id": {
+"type": "string"
+},
+"question_text": {
+"type": "string"
+},
+"question_type": {
+"type": "string"
+}
+},
+"title": "QuestionData"
+},
+"QuestionResponse": {
+"type": "object",
+"properties": {
+"form_localizations": {
+"type": "object"
+},
+"merchant_information": {
+"$ref": "#/definitions/MerchantInformation"
+},
+"merchant_properties": {
+"type": "object",
+"additionalProperties": {
+"type": "string"
+}
+},
+"product_information": {
+"$ref": "#/definitions/ProductInformation"
+},
+"question_data": {
+"$ref": "#/definitions/QuestionData"
+}
+},
+"title": "QuestionResponse"
+},
+"SimpleReviewField": {
+"title": "SimpleReviewField",
+"allOf": [
+{
+"$ref": "#/definitions/BaseReviewField«object»"
+},
+{
+"type": "object",
+"properties": {
+"answer_type": {
+"type": "string",
+"enum": [
+"text",
+"numeric",
+"email"
+]
+},
+"error_message": {
+"$ref": "#/definitions/ErrorMessage"
+},
+"field_type": {
+"type": "string",
+"enum": [
+"simple",
+"collection",
+"composite"
+]
+},
+"group": {
+"type": "string"
+},
+"helper_text": {
+"type": "string"
+},
+"hidden": {
+"type": "boolean"
+},
+"id": {
+"type": "string"
+},
+"input_type": {
+"type": "string",
+"enum": [
+"TextBox",
+"TextArea",
+"Stars"
+]
+},
+"key": {
+"type": "string"
+},
+"label": {
+"type": "string"
+},
+"max_length": {
+"type": "integer",
+"format": "int32"
+},
+"required": {
+"type": "boolean"
+},
+"responsive_hint": {
+"type": "string"
+},
+"value": {
+"type": "object"
+}
+},
+"title": "SimpleReviewField"
+}
+]
+},
+"WriteAReviewB2BContextInformation": {
+"type": "object",
+"properties": {
+"image_template_id": {
+"type": "integer",
+"format": "int64"
+},
+"product_id": {
+"type": "integer",
+"format": "int64"
+},
+"product_template_id": {
+"type": "integer",
+"format": "int64"
+}
+},
+"title": "WriteAReviewB2BContextInformation"
+},
+"WriteAReviewB2BPostRequest": {
+"type": "object",
+"properties": {
+"browser": {
+"type": "string"
+},
+"campaign_id": {
+"type": "string"
+},
+"context_information": {
+"$ref": "#/definitions/WriteAReviewB2BContextInformation"
+},
+"disclosure_code": {
+"type": "string"
+},
+"fields": {
+"type": "array",
+"items": {
+"$ref": "#/definitions/BaseReviewField«object»"
+}
+},
+"iovation_black_box": {
+"type": "string"
+},
+"ip_address": {
+"type": "string"
+},
+"order_id": {
+"type": "string"
+},
+"promo_code": {
+"type": "string"
+},
+"reviewer_type": {
+"type": "string"
+},
+"source": {
+"type": "string"
+},
+"started_timestamp": {
+"type": "string"
+},
+"submitted_timestamp": {
+"type": "string"
+}
+},
+"title": "WriteAReviewB2BPostRequest"
+}
+}
+}

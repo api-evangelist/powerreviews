@@ -4,86 +4,102 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: PowerReviews
 providerId: powerreviews
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+note: >-
+  Replaces the 2026-05-04 bulk-sweep scaffold, which asserted per-tier
+  requests-per-minute quotas and X-RateLimit-* headers that PowerReviews has
+  never published. The values below are the provider's own published limit plus
+  the response headers actually observed on a live probe of
+  readservices-b2c.powerreviews.com on 2026-08-13.
 tags:
   - E-Commerce
   - Ratings and Reviews
   - User Generated Content
   - Retail
-  - Marketing
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the PowerReviews API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: >-
+  PowerReviews publishes one rate limit, in prose, on the Read API use-cases
+  page: more than 1,800 requests from a single IP address within a five-minute
+  window blocks that IP for five minutes, and the block is extended while the
+  excessive traffic continues. Enforcement is an IP block, not a throttled
+  response — the API returns no RateLimit-* headers, no Retry-After, and no 429,
+  so there is no runtime signal a client or agent can read before it is cut off.
+  PowerReviews' documented mitigation is to cache Read API responses rather than
+  call the API on each page load.
+limit_count: 1
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  observed: '2026-08-13'
+  observed_note: >-
+    A live unauthenticated GET against
+    readservices-b2c.powerreviews.com returned only CloudFront and standard
+    security headers (x-frame-options, x-content-type-options, x-xss-protection,
+    via, x-amz-cf-id, x-amz-cf-pop, x-cache). No rate-limit family header of any
+    kind was present.
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttled: null
+  note: >-
+    No 429 is declared in either Swagger document and none was observed. The
+    documented enforcement is an edge IP block, which presents to a client as a
+    connection-level failure rather than an HTTP status.
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
+  - name: Read API per-IP request ceiling
+    scope: ip-address
+    metric: requests
+    limit: 1800
+    timeFrame: 5 minutes
+    window: fixed
+    burst: null
+    enforcement: ip-block
+    block_duration: 5 minutes
+    escalation: >-
+      The block is reassessed after five minutes and continues while calls remain
+      above the configured threshold.
+    effective_date: '2019-11-04'
     applies:
-      - PowerReviews API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - PowerReviews API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - PowerReviews API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - PowerReviews API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - PowerReviews API
+      - PowerReviews Read API
+    source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+  - name: Write API
+    scope: null
+    limit: null
+    note: >-
+      PowerReviews publishes no rate limit for writeservices.powerreviews.com.
+      The Write API use-cases page states only that content submission from
+      high-volume merchants is isolated from general online submission and from
+      low-volume merchants.
+    source: https://developers.powerreviews.com/Content/Write%20API/Use%20Cases.htm
+pagination_limits:
+  note: >-
+    Not a rate limit, but the published hard bounds on result retrieval that
+    govern how fast a corpus can be walked.
+  max_page_size: 25
+  min_page_size: 1
+  max_offset_window: 10000
+  rule: paging.size + paging.from must not exceed 10000
+  source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Cache rather than call
+    description: >-
+      PowerReviews explicitly recommends caching the API response instead of
+      calling it on each page load, both to speed page rendering and to stay
+      under the per-IP threshold.
+    source: https://developers.powerreviews.com/Content/Read%20API/Use%20Cases.htm
+  - name: Escalation path
+    description: >-
+      Consumers hitting the limit are directed to PowerReviews Technical Services
+      rather than to a self-service quota increase.
+gaps:
+  - no RateLimit-* or Retry-After response headers
+  - no 429 status on exhaustion
+  - no per-key or per-merchant quota published
+  - no rate limit published for the Write API
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
