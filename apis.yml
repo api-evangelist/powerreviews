@@ -37,51 +37,155 @@ created: '2026-03-16'
 modified: '2026-08-13'
 specificationVersion: '0.23'
 apis:
-- aid: powerreviews:powerreviews-api
-  name: PowerReviews Read API
-  description: The PowerReviews Read API returns reviews, questions, answers, product review snippets,
-    and merchant display configuration left on a merchant's products by their customers. It is used to
-    render user-generated content in custom storefronts and mobile apps, and to feed review data into
-    CRM, analytics, and third-party software. All operations are GET requests keyed by merchant id and
-    locale, authenticated with an apikey query parameter.
+- aid: powerreviews:powerreviews-b2b-answer-api
+  name: PowerReviews B2B Answer API
+  description: Endpoint for submitting answers.
   humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
   baseURL: https://readservices-b2c.powerreviews.com
   tags:
-  - E-Commerce
-  - Ratings and Reviews
-  - User Generated Content
+  - B2B Answer
   properties:
   - type: OpenAPI
-    url: openapi/powerreviews-readservices-openapi.yml
+    url: openapi/powerreviews-b2b-answer-api-openapi.yml
   - type: Documentation
     url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
   - type: APIReference
     url: https://developers.powerreviews.com/Content/reference/read.html
-  - type: Overlay
-    url: overlays/powerreviews-readservices-overlay.yaml
-- aid: powerreviews:powerreviews-write-api
-  name: PowerReviews Write API
-  description: The PowerReviews Write API (the B2B WriteServices surface) provides server-to-server integration
-    endpoints for the PowerReviews Write-a-Review form. It retrieves the locale-aware review template
-    for a page id and submits reviews, questions, answers, and merchant responses on behalf of a merchant,
-    including the iOvation device fingerprint required for content authenticity screening. Submitted content
-    enters PowerReviews in pending status for moderation.
-  humanURL: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
-  baseURL: https://writeservices.powerreviews.com
-  tags:
-  - E-Commerce
-  - Ratings and Reviews
-  - User Generated Content
-  properties:
-  - type: OpenAPI
-    url: openapi/powerreviews-writeservices-openapi.yml
   - type: Documentation
     url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
   - type: APIReference
     url: https://developers.powerreviews.com/Content/reference/write.html
-  - type: Overlay
-    url: overlays/powerreviews-writeservices-overlay.yaml
+- aid: powerreviews:powerreviews-b2b-merchantresponse-api
+  name: PowerReviews B2B MerchantResponse API
+  description: Endpoint for submitting merchant responses.
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - B2B MerchantResponse
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-b2b-merchantresponse-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+- aid: powerreviews:powerreviews-b2b-question-api
+  name: PowerReviews B2B Question API
+  description: Endpoint for submitting questions
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - B2B Question
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-b2b-question-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+- aid: powerreviews:powerreviews-b2b-write-a-review-api
+  name: PowerReviews B2B Write a Review API
+  description: Endpoints designed to provide external integration to PowerReviews WAR
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - B2B Write a Review
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-b2b-write-a-review-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+- aid: powerreviews:powerreviews-configuration-api
+  name: PowerReviews Configuration API
+  description: Endpoints for merchant configuration
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+- aid: powerreviews:powerreviews-q-a-api
+  name: PowerReviews Q&A API
+  description: Endpoints for product questions and answers by merchant
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - Q&A
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-q-a-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+- aid: powerreviews:powerreviews-reviews-api
+  name: PowerReviews Reviews API
+  description: Endpoints for product reviews by merchant
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
+- aid: powerreviews:powerreviews-snippets-api
+  name: PowerReviews Snippets API
+  description: Endpoints for product snippets by merchant
+  humanURL: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  baseURL: https://readservices-b2c.powerreviews.com
+  tags:
+  - Snippets
+  properties:
+  - type: OpenAPI
+    url: openapi/powerreviews-snippets-api-openapi.yml
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Read%20API/Read%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/read.html
+  - type: Documentation
+    url: https://developers.powerreviews.com/Content/Write%20API/Write%20API.htm
+  - type: APIReference
+    url: https://developers.powerreviews.com/Content/reference/write.html
 common:
+- type: Overlay
+  url: overlays/powerreviews-readservices-overlay.yaml
+- type: Overlay
+  url: overlays/powerreviews-writeservices-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/powerreviews-agentic-access.yml
 - type: Website
