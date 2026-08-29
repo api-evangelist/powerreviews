@@ -10,6 +10,18 @@ description: 'PowerReviews provides ratings and reviews software and APIs for co
   support, and are documented in a MadCap Flare developer portal with Swagger 2.0 references. PowerReviews
   was acquired by Syndigo and now sits inside the Syndigo Product Experience Cloud.'
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
