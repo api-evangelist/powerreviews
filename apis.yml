@@ -194,6 +194,9 @@ apis:
   - type: APIReference
     url: https://developers.powerreviews.com/Content/reference/write.html
 common:
+- type: CapabilityMap
+  url: capabilities/powerreviews-capability-edges.yml
+  name: PowerReviews Business Capability Map
 - type: Overlay
   url: overlays/powerreviews-readservices-overlay.yaml
 - type: Overlay

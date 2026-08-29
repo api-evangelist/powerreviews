@@ -1,0 +1,34 @@
+slug: powerreviews
+provider: PowerReviews
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Retail & Consumer Goods
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: B2B Write a Review
+  spec_file: powerreviews-b2b-write-a-review-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.75
+  evidence: POST /api/b2b/writereview/submit_review submitReviewUsingPOST Submit a review; schema B2BReviewData
+  reason: Collection of consumer product reviews - customer feedback capture programme (ratings and reviews).
+- tag: Reviews
+  spec_file: powerreviews-reviews-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.7
+  evidence: GET /m/{merchantId}/l/{locale}/product/{pageId}/reviews getProductReviews; "return reviews,
+    questions, and answers left on your products by your customers"
+  reason: Retrieval of consumer ratings and reviews left by customers on products — voice-of-customer
+    content capture and display, closest to Customer Feedback Management. Some ambiguity with product
+    content authoring hence 0.7.
