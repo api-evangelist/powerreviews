@@ -1,0 +1,177 @@
+openapi: 3.2.0
+info:
+  description: API for interacting with PowerReviews WriteServices.
+  version: 0.0.0
+  title: PowerReviews B2B B2B Question API
+  termsOfService: https://www.powerreviews.com/terms-of-use/
+servers:
+- url: https://writeservices.powerreviews.com/
+tags:
+- name: B2B Question
+  description: Endpoint for submitting questions
+paths:
+  /api/b2b/question:
+    post:
+      tags:
+      - B2B Question
+      summary: Submit a question
+      description: Creates a question for a given product or service
+      operationId: submitQuestionUsingPOST
+      parameters:
+      - name: apikey
+        in: query
+        description: Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: f
+        in: query
+        description: Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: locale
+        in: query
+        description: Locale used for the api call. If not provided, will default to the merchant’s communication locale.
+        required: false
+        x-example: en_US
+        schema:
+          type: string
+      - name: merchant_group_id
+        in: query
+        description: PowerReviews assigned MerchantGroup identifier. Use with `site_id`.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: merchant_id
+        in: query
+        description: PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page_id
+        in: query
+        description: The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.
+        required: false
+        schema:
+          type: string
+      - name: page_id_variant
+        in: query
+        description: The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.
+        required: false
+        schema:
+          type: string
+      - name: site_id
+        in: query
+        description: Client’s internal site identifier. Use with `merchant_group_id`.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionData'
+        description: questionData
+        required: true
+components:
+  schemas:
+    QuestionData:
+      type: object
+      properties:
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        iovation_black_box:
+          type: string
+        is_seeded:
+          type: boolean
+        merchant_question_category:
+          type: string
+        merchant_question_id:
+          type: string
+        merchant_user_id:
+          type: string
+        question_text:
+          type: string
+        question_type:
+          type: string
+      title: QuestionData
+    MerchantInformation:
+      type: object
+      properties:
+        configuration:
+          type: object
+        large_logo_image_url:
+          type: string
+        name:
+          type: string
+        promo_markup:
+          type: string
+        return_url:
+          type: string
+        small_logo_image_url:
+          type: string
+      title: MerchantInformation
+    QuestionResponse:
+      type: object
+      properties:
+        form_localizations:
+          type: object
+        merchant_information:
+          $ref: '#/components/schemas/MerchantInformation'
+        merchant_properties:
+          type: object
+          additionalProperties:
+            type: string
+        product_information:
+          $ref: '#/components/schemas/ProductInformation'
+        question_data:
+          $ref: '#/components/schemas/QuestionData'
+      title: QuestionResponse
+    ProductInformation:
+      type: object
+      properties:
+        full_product_image_urls:
+          type: object
+          additionalProperties:
+            type: string
+        full_product_url:
+          type: string
+        locale:
+          type: string
+        name:
+          type: string
+        page_id:
+          type: string
+        product_lookup_location:
+          type: string
+        variant:
+          type: string
+      title: ProductInformation

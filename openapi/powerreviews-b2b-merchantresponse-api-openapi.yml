@@ -1,0 +1,209 @@
+openapi: 3.2.0
+info:
+  description: API for interacting with PowerReviews WriteServices.
+  version: 0.0.0
+  title: PowerReviews B2B B2B MerchantResponse API
+  termsOfService: https://www.powerreviews.com/terms-of-use/
+servers:
+- url: https://writeservices.powerreviews.com/
+tags:
+- name: B2B MerchantResponse
+  description: Endpoint for submitting merchant responses.
+paths:
+  /api/b2b/merchant-response:
+    post:
+      tags:
+      - B2B MerchantResponse
+      summary: Submit a merchant response
+      description: Creates a merchant response for a given review.
+      operationId: submitMerchantResponseUsingPOST
+      parameters:
+      - name: apikey
+        in: query
+        description: Token used to secure client requests. Please refer to [advanced security options](http://help.powerreviews.com/Content/Support%20Topics/PowerReviews%20Information%20Security%20Policy.htm) for further details.
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: f
+        in: query
+        description: Feature flag parameter, allowing for overrides of default functionality or that provided by merchant properties.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: locale
+        in: query
+        description: Locale used for the api call. If not provided, will default to the merchant’s communication locale.
+        required: false
+        x-example: en_US
+        schema:
+          type: string
+      - name: merchant_group_id
+        in: query
+        description: PowerReviews assigned MerchantGroup identifier. Use with `site_id`.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: merchant_id
+        in: query
+        description: PowerReviews unique identifier for a merchant. Can be used as an alternative to a `merchant_group_id`/`site_id` pair.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page_id
+        in: query
+        description: The term “Page ID” is a PowerReviews proprietary concept. It represents the concept that is being reviewed. Its origination comes from allowing clients to take and display reviews about anything on a given page. For many clients, the item being reviewed on a given page is a product. These clients often use an internal SKU (stock keeping unit) or identifier that represents a product. For other clients, the Page ID can represent a service offering or any unique offering that is being reviewed. The main requirement for the Page ID is that it should be unique with respect to other concepts being reviewed within the same site. When a client implements the PowerReviews solution, it determines which internal identifier to use as the Page ID. When end users write reviews, those reviews will be attached to a Page ID in the PowerReviews system. Clients can then use that Page ID to retrieve those reviews.
+        required: false
+        schema:
+          type: string
+      - name: page_id_variant
+        in: query
+        description: The term “variant” is a PowerReviews proprietary concept. It represents the variation within the Page ID such as different colors, different sizes or other variations. Reviews written about different Page ID + Variant combinations will always roll up and be displayed whenever reviews are requested for just the Page ID. Note that in the PowerReviews database, the reviews are associated down to the Variant level so that the client can understand any trends that occur by color, size or other variation. This can be thought of as a sub-identifier for the `page_id`.
+        required: false
+        schema:
+          type: string
+      - name: site_id
+        in: query
+        description: Client’s internal site identifier. Use with `merchant_group_id`.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/B2BResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantResponseData'
+        description: merchantResponseData
+        required: true
+components:
+  schemas:
+    ErrorMessage:
+      type: object
+      properties:
+        detail:
+          type: object
+        error_code:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+        message:
+          type: string
+      title: ErrorMessage
+    MerchantResponseData:
+      type: object
+      properties:
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        review_ugc_id:
+          type: integer
+          format: int64
+        text:
+          type: string
+      title: MerchantResponseData
+    B2BResponse:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
+        error_code:
+          type: string
+        message:
+          type: string
+        status_code:
+          type: string
+          enum:
+          - '100'
+          - '101'
+          - '102'
+          - '103'
+          - '200'
+          - '201'
+          - '202'
+          - '203'
+          - '204'
+          - '205'
+          - '206'
+          - '207'
+          - '208'
+          - '226'
+          - '300'
+          - '301'
+          - '302'
+          - '303'
+          - '304'
+          - '305'
+          - '307'
+          - '308'
+          - '400'
+          - '401'
+          - '402'
+          - '403'
+          - '404'
+          - '405'
+          - '406'
+          - '407'
+          - '408'
+          - '409'
+          - '410'
+          - '411'
+          - '412'
+          - '413'
+          - '414'
+          - '415'
+          - '416'
+          - '417'
+          - '418'
+          - '419'
+          - '420'
+          - '421'
+          - '422'
+          - '423'
+          - '424'
+          - '426'
+          - '428'
+          - '429'
+          - '431'
+          - '451'
+          - '500'
+          - '501'
+          - '502'
+          - '503'
+          - '504'
+          - '505'
+          - '506'
+          - '507'
+          - '508'
+          - '509'
+          - '510'
+          - '511'
+      title: B2BResponse
