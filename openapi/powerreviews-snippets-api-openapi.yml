@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  description: You can use the Read API to return reviews, questions, and answers left on  your products by your customers. This is helpful especially if you're using  customizations on your website, have a mobile app where you want review content  to appear, or if you want to integrate and feed review data into third-party  software. You can retrieve this information by making GET calls to the Read API.
+  description: You can use the Read API to return reviews, questions, and answers left on your products by your customers. This is helpful especially if you're using customizations on your website, have a mobile app where you want review content to appear, or if you want to integrate and feed review data into third-party software. You can retrieve this information by making GET calls to the Read API.
   version: 1.0.0
   title: Read Services Snippets API
   termsOfService: http://www.powerreviews.com/terms-of-use/
@@ -56,38 +56,6 @@ paths:
           description: Not Found
 components:
   schemas:
-    PagingResponse:
-      type: object
-      properties:
-        current_page_number:
-          type: integer
-          format: int32
-        next_page_url:
-          type: string
-        page_size:
-          type: integer
-          format: int32
-        pages_total:
-          type: integer
-          format: int64
-        total_results:
-          type: integer
-          format: int64
-    ConfigurationResponse:
-      type: object
-      properties:
-        features:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        localizations:
-          type: object
-          additionalProperties:
-            type: string
-        properties:
-          type: object
     QueryResponse:
       type: object
       properties:
@@ -106,3 +74,35 @@ components:
           type: array
           items:
             type: object
+    ConfigurationResponse:
+      type: object
+      properties:
+        features:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        localizations:
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object
+    PagingResponse:
+      type: object
+      properties:
+        current_page_number:
+          type: integer
+          format: int32
+        next_page_url:
+          type: string
+        page_size:
+          type: integer
+          format: int32
+        pages_total:
+          type: integer
+          format: int64
+        total_results:
+          type: integer
+          format: int64

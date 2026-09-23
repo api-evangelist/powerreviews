@@ -99,63 +99,26 @@ paths:
         required: true
 components:
   schemas:
-    MerchantInformation:
+    ProductInformation:
       type: object
       properties:
-        configuration:
+        full_product_image_urls:
           type: object
-        large_logo_image_url:
+          additionalProperties:
+            type: string
+        full_product_url:
+          type: string
+        locale:
           type: string
         name:
           type: string
-        promo_markup:
+        page_id:
           type: string
-        return_url:
+        product_lookup_location:
           type: string
-        small_logo_image_url:
+        variant:
           type: string
-      title: MerchantInformation
-    QuestionData:
-      type: object
-      properties:
-        author_email:
-          type: string
-        author_location:
-          type: string
-        author_name:
-          type: string
-        iovation_black_box:
-          type: string
-        is_seeded:
-          type: boolean
-        merchant_question_category:
-          type: string
-        merchant_question_id:
-          type: string
-        merchant_user_id:
-          type: string
-        question_text:
-          type: string
-        question_type:
-          type: string
-      title: QuestionData
-    AnswerResponse:
-      type: object
-      properties:
-        answer_data:
-          $ref: '#/components/schemas/AnswerData'
-        days_since_asked:
-          type: integer
-          format: int64
-        form_localizations:
-          type: object
-        merchant_information:
-          $ref: '#/components/schemas/MerchantInformation'
-        product_information:
-          $ref: '#/components/schemas/ProductInformation'
-        question_data:
-          $ref: '#/components/schemas/QuestionData'
-      title: AnswerResponse
+      title: ProductInformation
     AnswerData:
       type: object
       properties:
@@ -189,23 +152,60 @@ components:
           type: integer
           format: int64
       title: AnswerData
-    ProductInformation:
+    QuestionData:
       type: object
       properties:
-        full_product_image_urls:
-          type: object
-          additionalProperties:
-            type: string
-        full_product_url:
+        author_email:
           type: string
-        locale:
+        author_location:
+          type: string
+        author_name:
+          type: string
+        iovation_black_box:
+          type: string
+        is_seeded:
+          type: boolean
+        merchant_question_category:
+          type: string
+        merchant_question_id:
+          type: string
+        merchant_user_id:
+          type: string
+        question_text:
+          type: string
+        question_type:
+          type: string
+      title: QuestionData
+    MerchantInformation:
+      type: object
+      properties:
+        configuration:
+          type: object
+        large_logo_image_url:
           type: string
         name:
           type: string
-        page_id:
+        promo_markup:
           type: string
-        product_lookup_location:
+        return_url:
           type: string
-        variant:
+        small_logo_image_url:
           type: string
-      title: ProductInformation
+      title: MerchantInformation
+    AnswerResponse:
+      type: object
+      properties:
+        answer_data:
+          $ref: '#/components/schemas/AnswerData'
+        days_since_asked:
+          type: integer
+          format: int64
+        form_localizations:
+          type: object
+        merchant_information:
+          $ref: '#/components/schemas/MerchantInformation'
+        product_information:
+          $ref: '#/components/schemas/ProductInformation'
+        question_data:
+          $ref: '#/components/schemas/QuestionData'
+      title: AnswerResponse

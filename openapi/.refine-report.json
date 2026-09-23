@@ -1,0 +1,39 @@
+{
+  "provider": "powerreviews",
+  "sources": [
+    "_original/powerreviews-readservices-openapi-original.yaml",
+    "_original/powerreviews-writeservices-openapi-original.yaml"
+  ],
+  "outputs": [
+    "powerreviews-configuration-api-openapi.yml",
+    "powerreviews-q-a-api-openapi.yml",
+    "powerreviews-reviews-api-openapi.yml",
+    "powerreviews-snippets-api-openapi.yml",
+    "powerreviews-b2b-answer-api-openapi.yml",
+    "powerreviews-b2b-merchantresponse-api-openapi.yml",
+    "powerreviews-b2b-question-api-openapi.yml",
+    "powerreviews-b2b-write-a-review-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "2 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "powerreviews-readservices-openapi-original.yaml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "powerreviews-writeservices-openapi-original.yaml: upgraded swagger 2.0 -> OpenAPI 3.2.0; renamed 1 component key(s) illegal in 3.x (e.g. BaseReviewField\u00abobject\u00bb)",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/powerreviews-writeservices-openapi.yml: archived document superseded by a larger archived document",
+    "_original/powerreviews-readservices-openapi.yml: archived document superseded by a larger archived document",
+    "powerreviews-b2b-answer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-b2b-merchantresponse-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-b2b-question-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-b2b-write-a-review-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-q-a-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "powerreviews-snippets-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

@@ -99,6 +99,42 @@ paths:
         required: true
 components:
   schemas:
+    ProductInformation:
+      type: object
+      properties:
+        full_product_image_urls:
+          type: object
+          additionalProperties:
+            type: string
+        full_product_url:
+          type: string
+        locale:
+          type: string
+        name:
+          type: string
+        page_id:
+          type: string
+        product_lookup_location:
+          type: string
+        variant:
+          type: string
+      title: ProductInformation
+    QuestionResponse:
+      type: object
+      properties:
+        form_localizations:
+          type: object
+        merchant_information:
+          $ref: '#/components/schemas/MerchantInformation'
+        merchant_properties:
+          type: object
+          additionalProperties:
+            type: string
+        product_information:
+          $ref: '#/components/schemas/ProductInformation'
+        question_data:
+          $ref: '#/components/schemas/QuestionData'
+      title: QuestionResponse
     QuestionData:
       type: object
       properties:
@@ -139,39 +175,3 @@ components:
         small_logo_image_url:
           type: string
       title: MerchantInformation
-    QuestionResponse:
-      type: object
-      properties:
-        form_localizations:
-          type: object
-        merchant_information:
-          $ref: '#/components/schemas/MerchantInformation'
-        merchant_properties:
-          type: object
-          additionalProperties:
-            type: string
-        product_information:
-          $ref: '#/components/schemas/ProductInformation'
-        question_data:
-          $ref: '#/components/schemas/QuestionData'
-      title: QuestionResponse
-    ProductInformation:
-      type: object
-      properties:
-        full_product_image_urls:
-          type: object
-          additionalProperties:
-            type: string
-        full_product_url:
-          type: string
-        locale:
-          type: string
-        name:
-          type: string
-        page_id:
-          type: string
-        product_lookup_location:
-          type: string
-        variant:
-          type: string
-      title: ProductInformation
