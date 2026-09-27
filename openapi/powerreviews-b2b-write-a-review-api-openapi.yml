@@ -223,32 +223,6 @@ paths:
         required: true
 components:
   schemas:
-    ErrorMessage:
-      type: object
-      properties:
-        detail:
-          type: object
-        error_code:
-          type: string
-        fields:
-          type: array
-          items:
-            type: object
-        message:
-          type: string
-      title: ErrorMessage
-    B2BReviewData:
-      type: object
-      properties:
-        context_information:
-          $ref: '#/components/schemas/WriteAReviewB2BContextInformation'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseReviewField_object'
-        started_timestamp:
-          type: string
-      title: B2BReviewData
     WriteAReviewB2BContextInformation:
       type: object
       properties:
@@ -290,6 +264,32 @@ components:
         responsive_hint:
           type: string
       title: BaseReviewField«object»
+    B2BReviewData:
+      type: object
+      properties:
+        context_information:
+          $ref: '#/components/schemas/WriteAReviewB2BContextInformation'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseReviewField_object'
+        started_timestamp:
+          type: string
+      title: B2BReviewData
+    ErrorMessage:
+      type: object
+      properties:
+        detail:
+          type: object
+        error_code:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+        message:
+          type: string
+      title: ErrorMessage
     WriteAReviewB2BPostRequest:
       type: object
       properties:

@@ -119,6 +119,39 @@ components:
         variant:
           type: string
       title: ProductInformation
+    AnswerResponse:
+      type: object
+      properties:
+        answer_data:
+          $ref: '#/components/schemas/AnswerData'
+        days_since_asked:
+          type: integer
+          format: int64
+        form_localizations:
+          type: object
+        merchant_information:
+          $ref: '#/components/schemas/MerchantInformation'
+        product_information:
+          $ref: '#/components/schemas/ProductInformation'
+        question_data:
+          $ref: '#/components/schemas/QuestionData'
+      title: AnswerResponse
+    MerchantInformation:
+      type: object
+      properties:
+        configuration:
+          type: object
+        large_logo_image_url:
+          type: string
+        name:
+          type: string
+        promo_markup:
+          type: string
+        return_url:
+          type: string
+        small_logo_image_url:
+          type: string
+      title: MerchantInformation
     AnswerData:
       type: object
       properties:
@@ -176,36 +209,3 @@ components:
         question_type:
           type: string
       title: QuestionData
-    MerchantInformation:
-      type: object
-      properties:
-        configuration:
-          type: object
-        large_logo_image_url:
-          type: string
-        name:
-          type: string
-        promo_markup:
-          type: string
-        return_url:
-          type: string
-        small_logo_image_url:
-          type: string
-      title: MerchantInformation
-    AnswerResponse:
-      type: object
-      properties:
-        answer_data:
-          $ref: '#/components/schemas/AnswerData'
-        days_since_asked:
-          type: integer
-          format: int64
-        form_localizations:
-          type: object
-        merchant_information:
-          $ref: '#/components/schemas/MerchantInformation'
-        product_information:
-          $ref: '#/components/schemas/ProductInformation'
-        question_data:
-          $ref: '#/components/schemas/QuestionData'
-      title: AnswerResponse
