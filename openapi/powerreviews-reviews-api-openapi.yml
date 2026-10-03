@@ -164,6 +164,23 @@ paths:
           description: Not Found
 components:
   schemas:
+    PagingResponse:
+      type: object
+      properties:
+        current_page_number:
+          type: integer
+          format: int32
+        next_page_url:
+          type: string
+        page_size:
+          type: integer
+          format: int32
+        pages_total:
+          type: integer
+          format: int64
+        total_results:
+          type: integer
+          format: int64
     QueryResponse:
       type: object
       properties:
@@ -197,20 +214,3 @@ components:
             type: string
         properties:
           type: object
-    PagingResponse:
-      type: object
-      properties:
-        current_page_number:
-          type: integer
-          format: int32
-        next_page_url:
-          type: string
-        page_size:
-          type: integer
-          format: int32
-        pages_total:
-          type: integer
-          format: int64
-        total_results:
-          type: integer
-          format: int64

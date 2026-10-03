@@ -236,46 +236,6 @@ components:
           type: integer
           format: int64
       title: WriteAReviewB2BContextInformation
-    BaseReviewField_object:
-      type: object
-      properties:
-        error_message:
-          $ref: '#/components/schemas/ErrorMessage'
-        field_type:
-          type: string
-          enum:
-          - simple
-          - collection
-          - composite
-        group:
-          type: string
-        helper_text:
-          type: string
-        hidden:
-          type: boolean
-        id:
-          type: string
-        key:
-          type: string
-        label:
-          type: string
-        required:
-          type: boolean
-        responsive_hint:
-          type: string
-      title: BaseReviewField«object»
-    B2BReviewData:
-      type: object
-      properties:
-        context_information:
-          $ref: '#/components/schemas/WriteAReviewB2BContextInformation'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseReviewField_object'
-        started_timestamp:
-          type: string
-      title: B2BReviewData
     ErrorMessage:
       type: object
       properties:
@@ -290,6 +250,18 @@ components:
         message:
           type: string
       title: ErrorMessage
+    B2BReviewData:
+      type: object
+      properties:
+        context_information:
+          $ref: '#/components/schemas/WriteAReviewB2BContextInformation'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseReviewField_object'
+        started_timestamp:
+          type: string
+      title: B2BReviewData
     WriteAReviewB2BPostRequest:
       type: object
       properties:
@@ -322,3 +294,31 @@ components:
         submitted_timestamp:
           type: string
       title: WriteAReviewB2BPostRequest
+    BaseReviewField_object:
+      type: object
+      properties:
+        error_message:
+          $ref: '#/components/schemas/ErrorMessage'
+        field_type:
+          type: string
+          enum:
+          - simple
+          - collection
+          - composite
+        group:
+          type: string
+        helper_text:
+          type: string
+        hidden:
+          type: boolean
+        id:
+          type: string
+        key:
+          type: string
+        label:
+          type: string
+        required:
+          type: boolean
+        responsive_hint:
+          type: string
+      title: BaseReviewField«object»

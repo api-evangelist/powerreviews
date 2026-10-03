@@ -99,6 +99,20 @@ paths:
         required: true
 components:
   schemas:
+    ErrorMessage:
+      type: object
+      properties:
+        detail:
+          type: object
+        error_code:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+        message:
+          type: string
+      title: ErrorMessage
     MerchantResponseData:
       type: object
       properties:
@@ -114,20 +128,6 @@ components:
         text:
           type: string
       title: MerchantResponseData
-    ErrorMessage:
-      type: object
-      properties:
-        detail:
-          type: object
-        error_code:
-          type: string
-        fields:
-          type: array
-          items:
-            type: object
-        message:
-          type: string
-      title: ErrorMessage
     B2BResponse:
       type: object
       properties:
