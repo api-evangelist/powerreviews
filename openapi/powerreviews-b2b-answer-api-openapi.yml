@@ -99,23 +99,6 @@ paths:
         required: true
 components:
   schemas:
-    AnswerResponse:
-      type: object
-      properties:
-        answer_data:
-          $ref: '#/components/schemas/AnswerData'
-        days_since_asked:
-          type: integer
-          format: int64
-        form_localizations:
-          type: object
-        merchant_information:
-          $ref: '#/components/schemas/MerchantInformation'
-        product_information:
-          $ref: '#/components/schemas/ProductInformation'
-        question_data:
-          $ref: '#/components/schemas/QuestionData'
-      title: AnswerResponse
     QuestionData:
       type: object
       properties:
@@ -209,3 +192,20 @@ components:
         small_logo_image_url:
           type: string
       title: MerchantInformation
+    AnswerResponse:
+      type: object
+      properties:
+        answer_data:
+          $ref: '#/components/schemas/AnswerData'
+        days_since_asked:
+          type: integer
+          format: int64
+        form_localizations:
+          type: object
+        merchant_information:
+          $ref: '#/components/schemas/MerchantInformation'
+        product_information:
+          $ref: '#/components/schemas/ProductInformation'
+        question_data:
+          $ref: '#/components/schemas/QuestionData'
+      title: AnswerResponse

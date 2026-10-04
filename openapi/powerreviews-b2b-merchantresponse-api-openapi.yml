@@ -99,35 +99,6 @@ paths:
         required: true
 components:
   schemas:
-    ErrorMessage:
-      type: object
-      properties:
-        detail:
-          type: object
-        error_code:
-          type: string
-        fields:
-          type: array
-          items:
-            type: object
-        message:
-          type: string
-      title: ErrorMessage
-    MerchantResponseData:
-      type: object
-      properties:
-        author_email:
-          type: string
-        author_location:
-          type: string
-        author_name:
-          type: string
-        review_ugc_id:
-          type: integer
-          format: int64
-        text:
-          type: string
-      title: MerchantResponseData
     B2BResponse:
       type: object
       properties:
@@ -207,3 +178,32 @@ components:
           - '510'
           - '511'
       title: B2BResponse
+    MerchantResponseData:
+      type: object
+      properties:
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        review_ugc_id:
+          type: integer
+          format: int64
+        text:
+          type: string
+      title: MerchantResponseData
+    ErrorMessage:
+      type: object
+      properties:
+        detail:
+          type: object
+        error_code:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+        message:
+          type: string
+      title: ErrorMessage
