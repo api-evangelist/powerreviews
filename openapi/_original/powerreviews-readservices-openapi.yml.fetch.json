@@ -1,0 +1,12 @@
+{
+ "url": "https://developers.powerreviews.com/Content/reference/api-specs/readservices.yaml",
+ "requested_url": "https://developers.powerreviews.com/Content/reference/api-specs/readservices.yaml",
+ "status": 200,
+ "content_type": "binary/octet-stream",
+ "bytes": 14307,
+ "sha256": "b152e3b3a173c8c6066b0f3632b20e567b0b2248bae284a331860184c21919cb",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
