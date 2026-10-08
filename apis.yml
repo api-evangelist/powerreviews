@@ -194,6 +194,8 @@ apis:
   - type: APIReference
     url: https://developers.powerreviews.com/Content/reference/write.html
 common:
+- type: FinOps
+  url: finops/powerreviews-finops.yml
 - type: CapabilityMap
   url: capabilities/powerreviews-capability-edges.yml
   name: PowerReviews Business Capability Map
