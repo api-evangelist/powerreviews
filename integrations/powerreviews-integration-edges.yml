@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/powerreviews/integrations
+- https://n8n.io/integrations/powerreviews/
+- https://composio.dev/toolkits/powerreviews
+- https://monid.ai/tools/powerreviews
+checked:
+- https://composio.dev/toolkits/powerreviews
+- https://monid.ai/tools/powerreviews
+- https://n8n.io/integrations/powerreviews/
+- https://zapier.com/apps/powerreviews/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
