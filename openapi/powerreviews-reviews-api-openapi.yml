@@ -164,21 +164,6 @@ paths:
           description: Not Found
 components:
   schemas:
-    ConfigurationResponse:
-      type: object
-      properties:
-        features:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        localizations:
-          type: object
-          additionalProperties:
-            type: string
-        properties:
-          type: object
     PagingResponse:
       type: object
       properties:
@@ -214,3 +199,18 @@ components:
           type: array
           items:
             type: object
+    ConfigurationResponse:
+      type: object
+      properties:
+        features:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        localizations:
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object

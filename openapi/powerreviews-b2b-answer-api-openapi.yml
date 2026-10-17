@@ -99,6 +99,26 @@ paths:
         required: true
 components:
   schemas:
+    ProductInformation:
+      type: object
+      properties:
+        full_product_image_urls:
+          type: object
+          additionalProperties:
+            type: string
+        full_product_url:
+          type: string
+        locale:
+          type: string
+        name:
+          type: string
+        page_id:
+          type: string
+        product_lookup_location:
+          type: string
+        variant:
+          type: string
+      title: ProductInformation
     QuestionData:
       type: object
       properties:
@@ -123,26 +143,6 @@ components:
         question_type:
           type: string
       title: QuestionData
-    ProductInformation:
-      type: object
-      properties:
-        full_product_image_urls:
-          type: object
-          additionalProperties:
-            type: string
-        full_product_url:
-          type: string
-        locale:
-          type: string
-        name:
-          type: string
-        page_id:
-          type: string
-        product_lookup_location:
-          type: string
-        variant:
-          type: string
-      title: ProductInformation
     AnswerData:
       type: object
       properties:

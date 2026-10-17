@@ -99,6 +99,42 @@ paths:
         required: true
 components:
   schemas:
+    ProductInformation:
+      type: object
+      properties:
+        full_product_image_urls:
+          type: object
+          additionalProperties:
+            type: string
+        full_product_url:
+          type: string
+        locale:
+          type: string
+        name:
+          type: string
+        page_id:
+          type: string
+        product_lookup_location:
+          type: string
+        variant:
+          type: string
+      title: ProductInformation
+    MerchantInformation:
+      type: object
+      properties:
+        configuration:
+          type: object
+        large_logo_image_url:
+          type: string
+        name:
+          type: string
+        promo_markup:
+          type: string
+        return_url:
+          type: string
+        small_logo_image_url:
+          type: string
+      title: MerchantInformation
     QuestionData:
       type: object
       properties:
@@ -123,26 +159,6 @@ components:
         question_type:
           type: string
       title: QuestionData
-    ProductInformation:
-      type: object
-      properties:
-        full_product_image_urls:
-          type: object
-          additionalProperties:
-            type: string
-        full_product_url:
-          type: string
-        locale:
-          type: string
-        name:
-          type: string
-        page_id:
-          type: string
-        product_lookup_location:
-          type: string
-        variant:
-          type: string
-      title: ProductInformation
     QuestionResponse:
       type: object
       properties:
@@ -159,19 +175,3 @@ components:
         question_data:
           $ref: '#/components/schemas/QuestionData'
       title: QuestionResponse
-    MerchantInformation:
-      type: object
-      properties:
-        configuration:
-          type: object
-        large_logo_image_url:
-          type: string
-        name:
-          type: string
-        promo_markup:
-          type: string
-        return_url:
-          type: string
-        small_logo_image_url:
-          type: string
-      title: MerchantInformation
