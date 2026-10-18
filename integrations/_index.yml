@@ -27,5 +27,5 @@
     - connectors/applications/power-reviews-enterprise
     vendor_link: https://www.powerreviews.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
