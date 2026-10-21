@@ -12,8 +12,17 @@ checked:
 - https://monid.ai/tools/powerreviews
 - https://n8n.io/integrations/powerreviews/
 - https://zapier.com/apps/powerreviews/integrations
+- https://partnerships.powerreviews.com/integrations
 summary: null
-marketplace_apps: []
+marketplace_apps:
+- marketplace: own
+  channel: partner-built
+  app: powerreviews
+  url: https://partnerships.powerreviews.com/integrations
+  app_count: 30
+  adapter: sweep-reviews-ugc.py:partnerpage-rendered-index+listing-pages
+  listed: 15
+  note: 30 listings read; only domain- / identity-linked partners are written
 edges:
 - partner_name: Fivetran
   partner: fivetran
@@ -41,4 +50,424 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Annex Cloud
+  app: Annex Cloud
+  partner: annex-cloud
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/annex-cloud
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Annex Cloud
+    matched_domain: annexcloud.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Annex Cloud
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: SAP Emarsys
+  app: SAP Emarsys
+  partner: emarsys
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/sap-emarsys
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: SAP Emarsys
+    matched_domain: emarsys.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - SAP Emarsys
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Emplifi
+  app: Emplifi
+  partner: emplifi-io
+  partner_match: domain+name-among-holders
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/emplifi
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Emplifi
+    matched_domain: emplifi.io
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Emplifi
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Epsilon
+  app: Epsilon
+  partner: epsilon
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/epsilon
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Epsilon
+    matched_domain: epsilon.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Epsilon
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Extole
+  app: Extole
+  partner: extole
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/extole
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Extole
+    matched_domain: extole.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Extole
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Listrak
+  app: Listrak
+  partner: listrak
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/listrak
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Listrak
+    matched_domain: listrak.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Listrak
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Movable Ink
+  app: Movable Ink
+  partner: movable-ink
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/movable-ink
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Movable Ink
+    matched_domain: movableink.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Movable Ink
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Okendo
+  app: Okendo
+  partner: okendo
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/okendo
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Okendo
+    matched_domain: okendo.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Okendo
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Oracle CX Commerce
+  app: Oracle CX Commerce
+  partner: oracle
+  partner_match: domain+name-among-holders
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/oracle-cx-commerce
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Oracle CX Commerce
+    matched_domain: oracle.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Oracle CX Commerce
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Shopify Plus
+  app: Shopify Plus
+  partner: shopify
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/shopify-plus
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Shopify Plus
+    matched_domain: shopify.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Shopify Plus
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Sprinklr
+  app: Sprinklr
+  partner: sprinklr
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/sprinklr
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Sprinklr
+    matched_domain: sprinklr.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Sprinklr
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Tealium
+  app: Tealium
+  partner: tealium
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/tealium
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Tealium
+    matched_domain: tealium.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Tealium
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: VTEX
+  app: VTEX
+  partner: vtex
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/vtex
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: VTEX
+    matched_domain: vtex.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - VTEX
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Yotpo
+  app: Yotpo
+  partner: yotpo
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/yotpo
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Yotpo
+    matched_domain: yotpo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Yotpo
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
+- partner_name: Zinrelo
+  app: Zinrelo
+  partner: zinrelo
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  relationship: platform-app
+  direction: unknown
+  evidence: https://partnerships.powerreviews.com/integrations/partner/zinrelo
+  category: null
+  contract_reference:
+    register: 'PowerReviews Tech Integrations Directory (partnerships.powerreviews.com/integrations, PartnerPage:
+      website)'
+    spec_file: null
+    role: powerreviews-listing-builder-unknown
+    registered_name: Zinrelo
+    matched_domain: zinrelo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Zinrelo
+    signal_note: 'builder not shown on the listing: direction unknown, kept out of position shares; one edge per
+      (partner, platform)'
+    detected_by: sweep-reviews-ugc.py
+    detected: '2026-10-20'
+  detected_by: sweep-reviews-ugc.py
+  detected: '2026-10-20'
 templates: []
