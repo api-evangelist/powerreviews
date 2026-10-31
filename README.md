@@ -1,4 +1,4 @@
-# PowerReviews (powerreviews)
+# PowerReviews
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,50 +64,141 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-PowerReviews provides ratings and reviews software and APIs for collecting, syndicating, and displaying user-generated reviews, questions, and answers to help shoppers make better purchase decisions and drive e-commerce conversion. The platform supports product catalog, review submission, display, and analytics use cases.
+PowerReviews provides ratings and reviews software and APIs for collecting, syndicating, and displaying user-generated reviews, questions, and answers so shoppers can make better purchase decisions and retailers and brands can drive e-commerce conversion. The platform publishes two public HTTP API surfaces: a Read API (readservices-b2c.powerreviews.com) that returns reviews, questions, answers, product snippets, and merchant display configuration for a merchant and locale, and a Write API (writeservices.powerreviews.com) that retrieves the write-a-review template and submits reviews, questions, answers, and merchant responses server-to-server. Both are authenticated with a merchant-scoped apikey query parameter issued by PowerReviews support, and are documented in a MadCap Flare developer portal with Swagger 2.0 references. PowerReviews was acquired by Syndigo and now sits inside the Syndigo Product Experience Cloud.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/powerreviews/refs/heads/main/apis.yml)
+**Areas:** E-Commerce · Ratings and Reviews · User Generated Content · Retail · Marketing · Syndication · Questions and Answers · Product Data
 
-## Scope
+## PowerReviews on APIs.io
 
-- **Type:** Index
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for PowerReviews is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/powerreviews/](https://apis.io/providers/powerreviews/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (8)
 
- - E-Commerce, Ratings and Reviews, User Generated Content, Retail, Marketing
+- [PowerReviews B2B Answer API](https://apis.io/apis/powerreviews/powerreviews-b2b-answer-api/) — Endpoint for submitting answers.
+- [PowerReviews B2B MerchantResponse API](https://apis.io/apis/powerreviews/powerreviews-b2b-merchantresponse-api/) — Endpoint for submitting merchant responses.
+- [PowerReviews B2B Question API](https://apis.io/apis/powerreviews/powerreviews-b2b-question-api/) — Endpoint for submitting questions
+- [PowerReviews B2B Write a Review API](https://apis.io/apis/powerreviews/powerreviews-b2b-write-a-review-api/) — Endpoints designed to provide external integration to PowerReviews WAR
+- [PowerReviews Configuration API](https://apis.io/apis/powerreviews/powerreviews-configuration-api/) — Endpoints for merchant configuration
+- [PowerReviews Q&A API](https://apis.io/apis/powerreviews/powerreviews-q-a-api/) — Endpoints for product questions and answers by merchant
+- [PowerReviews Reviews API](https://apis.io/apis/powerreviews/powerreviews-reviews-api/) — Endpoints for product reviews by merchant
+- [PowerReviews Snippets API](https://apis.io/apis/powerreviews/powerreviews-snippets-api/) — Endpoints for product snippets by merchant
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### PowerReviews API
-PowerReviews API for collecting, managing, syndicating, and displaying product ratings, reviews, and questions. Used by retailers and brands to integrate user-generated content into product detail pages and merchandising workflows.
+Model Context Protocol servers that expose the API to agents.
 
-**Human URL:** [https://www.powerreviews.com/developers/](https://www.powerreviews.com/developers/)
+- [powerreviews](https://apis.io/servers/powerreviews/powerreviews/)
 
+#### Agentic access (1)
 
-#### Tags:
+Which operations an agent can call, which act, and which need a human in the loop.
 
- - E-Commerce, Ratings and Reviews
+- [Powerreviews Agentic Access](https://apis.io/agentic-access/powerreviews/powerreviews-agentic-access/)
 
-#### Properties
+#### Overlays (2)
 
-- [Documentation](https://www.powerreviews.com/developers/)
-- [SignUp](https://www.powerreviews.com/contact/)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-## Common Properties
+- [Powerreviews Readservices Overlay](https://apis.io/overlays/powerreviews/powerreviews-readservices-overlay/)
+- [Powerreviews Writeservices Overlay](https://apis.io/overlays/powerreviews/powerreviews-writeservices-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Powerreviews Authentication](https://apis.io/security/powerreviews/powerreviews-authentication/)
+- [Powerreviews Domain Security](https://apis.io/security/powerreviews/powerreviews-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Powerreviews Plans Pricing](https://apis.io/plans/powerreviews/powerreviews-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Powerreviews Rate Limits](https://apis.io/rate-limits/powerreviews/powerreviews-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Powerreviews Finops](https://apis.io/finops/powerreviews/powerreviews-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.powerreviews.com/)
-- [Documentation](https://www.powerreviews.com/developers/)
+- [Documentation](https://developers.powerreviews.com/Content/Home.htm)
+- [Getting started](https://developers.powerreviews.com/Content/Getting%20Started%20APIs/Getting%20Started.htm)
+- [API reference](https://developers.powerreviews.com/Content/reference/read.html)
+- [Sign up](https://www.powerreviews.com/demo/)
 - [Support](https://www.powerreviews.com/contact/)
+- [Changelog](https://developers.powerreviews.com/Content/What's%20New/Changelog.htm)
+- [Blog](https://www.powerreviews.com/feed/)
+- [Terms of service](https://www.powerreviews.com/terms-of-use/)
+- [Privacy policy](https://syndigo.com/legal/privacy-notice/)
+- [GitHub](https://github.com/powerreviews)
+- [Status](http://status.powerreviews.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 45.5** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 40.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 63.2 |
+| Developer ergonomics | 58.9 |
+| Access clarity | 34.2 |
+
+**Agent readiness 22.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/powerreviews/](https://apis.io/providers/powerreviews/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PowerReviews: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/powerreviews/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
